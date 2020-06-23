@@ -1,5 +1,5 @@
 
-CREATE INDEX FOR (n.Character) ON (n.name);
+CREATE INDEX FOR (n:Character) ON (n.name);
 CREATE INDEX FOR (n:House) ON (n.name);
 CREATE INDEX FOR (n:Episode) ON (n.season);
 CREATE INDEX FOR (n:Scene) ON (n.season);
