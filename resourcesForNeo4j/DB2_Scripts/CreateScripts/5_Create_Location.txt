@@ -1,0 +1,17 @@
+// Creazione dei nodi "Location"
+
+CALL apoc.load.json("file:///locations.json") YIELD value
+WITH value.regions AS regions
+WITH [region IN regions | region] AS regions
+FOREACH (region IN regions |
+  MERGE(s:Location {
+    name:         region.location,
+    sublocations: region.subLocation
+  })
+);
+
+
+// Creazione della relazione "SET_IN" tra i nodi "Scene" e i nodi "Location"
+
+MATCH (s:Scene), (l:Location {name: s.location})
+MERGE (s)-[:SET_IN]->(l);

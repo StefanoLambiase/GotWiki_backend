@@ -1,0 +1,75 @@
+// Creazione dei nodi
+
+CALL apoc.load.json("file:///characters.json")
+YIELD value
+UNWIND value.characters AS characters
+WITH characters.characterName AS characterName,
+     characters.houseName AS houseName,
+     characters.actorName AS actorName,
+     characters.characterImageFull AS characterImageFull,
+     characters.characterImageThumb AS characterImageThumb,
+     characters.nickname AS characterNickname,
+     characters.royal AS characterIsRoyal,
+     characters.alive AS characterIsAlive
+MERGE (c:Character {
+  name:       characterName,
+  house:      coalesce(houseName, 'unknown'),
+  actor:      coalesce(actorName, 'N/A'),
+  imageFull:  coalesce(characterImageFull, 'N/A'),
+  imageThumb: coalesce(characterImageThumb, 'N/A'),
+  nickname:   coalesce(characterNickname, 'None'),
+  isRoyal:    toBoolean(coalesce(characterIsRoyal, 'false')),
+  isAlive:    toString(coalesce(characterIsAlive, 'N/A'))
+});
+
+
+// Creazione della relazione "SIBLING_OF" tra nodi "Character"
+
+CALL apoc.load.json("file:///characters.json")
+YIELD value
+UNWIND value.characters AS characters
+WITH characters.characterName AS characterName,
+     characters.siblings AS siblings
+MATCH (c1:Character {name: characterName}), (c2:Character)
+  WHERE c2.name IN siblings
+MERGE (c1)-[r:SIBLING_OF]->(c2);
+
+
+// Creazione della relazione "SON_OF" tra nodi "Character"
+
+CALL apoc.load.json("file:///characters.json")
+YIELD value
+UNWIND value.characters AS characters
+WITH characters.characterName AS characterName,
+     characters.parentOf AS parentOf
+MATCH (c1:Character {name: characterName}), (c2:Character)
+  WHERE c2.name IN parentOf
+MERGE (c2)-[r:SON_OF]->(c1);
+
+
+// Creazione della relazione "ENGAGED" tra nodi "Character"
+
+CALL apoc.load.json("file:///characters.json")
+YIELD value
+UNWIND value.characters AS characters
+WITH characters.characterName AS characterName,
+     characters.marriedEngaged AS engaged
+MATCH (c1:Character {name: characterName}), (c2:Character)
+  WHERE c2.name IN engaged
+MERGE (c1)-[r:ENGAGED]->(c2);
+
+
+// Creazione della relazione "KILLED" tra nodi "Character"
+LOAD CSV WITH HEADERS FROM 'file:///game-of-thrones-deaths-data.csv'
+AS row
+MATCH (c1:Character {name: row.killer}), (c2:Character {name: row.character_killed})
+CREATE (c1)-[r:KILLED {
+  season:     toInteger(row.season),
+  episode:    toInteger(row.episode),
+  method:     row.method,
+  methodCat:  row.method_cat,
+  reason:     row.reason,
+  location:   row.location,
+  allegiance: row.allegiance,
+  importance: toInteger(coalesce(row.importance, '0'))
+}]->(c2);

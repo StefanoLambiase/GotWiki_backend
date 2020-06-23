@@ -1,0 +1,34 @@
+// Creazione dei nodi "Scene"
+
+CALL apoc.load.json("file:///scenes.json") YIELD value
+WITH value.episodes AS episodes
+WITH [episode IN episodes | episode] AS episodesL
+FOREACH (episode IN episodesL |
+  FOREACH (scenesEpisode IN episode.scenes |
+    FOREACH (scene IN scenesEpisode |
+      CREATE(s:Scene {
+        id:          scene.id,
+        start:       localtime(scene.sceneStart),
+        end:         localtime(scene.sceneEnd),
+        season:      episode.seasonNum,
+        episode:     episode.episodeNum,
+        characters:  scene.characters,
+        location:    scene.location,
+        sublocation: coalesce(scene.subLocation, '')
+      })
+    )
+  )
+);
+
+
+// Creazione relazione "BELONGS_TO" tra i nodi "Scene" e i nodi "Episode"
+
+MATCH (e:Episode), (s:Scene {season: e.season, episode: e.episode})
+MERGE (s)-[:BELONGS_TO]->(e);
+
+
+// Creazione relazione "APPEARS_IN" tra i nodi "Character" e "Scene"
+
+MATCH (s:Scene), (c:Character)
+  WHERE c.name IN s.characters
+MERGE (c)-[:APPEARS_IN]->(s);

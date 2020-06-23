@@ -1,0 +1,11 @@
+1. Installare Neo4j desktop sulla macchina.
+2. Nella schermata dei progetti installare il "plugin" APOC. (RIAVVIARE)
+3. Creare un nuovo Graph e andare nei suoi settings.
+4. Assicurarsi che APOC sia abilitato per il DB appena creato. (RIAVVIARE)
+5. Andare nella tab "Settings" e cercare la seguente riga di codice (senza i trattini iniziale e finale):
+	- dbms.security.procedures.unrestricted=apoc.* -
+6. Sotto la linea di codice trovata incollare le seguenti due linee di codice (senza trattini):
+	- apoc.export.file.enabled=true -
+	- apoc.import.file.enabled=true -
+7. RIAVVIARE
+8. Andare nella directory "Import" del DB e incollarvici dentro tutti i file .json e .csv.

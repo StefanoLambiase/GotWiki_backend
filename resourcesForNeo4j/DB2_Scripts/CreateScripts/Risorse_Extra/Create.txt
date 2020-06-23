@@ -1,0 +1,101 @@
+// CREAZIONE DEI NODI CHARACTHERS
+CALL apoc.load.json("file:///characters.json")
+YIELD value
+UNWIND value.characters AS characters
+WITH characters.characterName AS characterName,
+     characters.houseName AS houseName,
+     characters.actorName AS actorName,
+     characters.characterImageFull AS characterImageFull,
+     characters.characterImageThumb AS characterImageThumb,
+     characters.nickname AS characterNickname,
+     characters.royal AS characterIsRoyal,
+     characters.alive AS characterIsAlive
+MERGE (c:Character {
+  name:       characterName,
+  house:      coalesce(houseName, 'unknown'),
+  actor:      coalesce(actorName, 'N/A'),
+  imageFull:  coalesce(characterImageFull, 'N/A'),
+  imageThumb: coalesce(characterImageThumb, 'N/A'),
+  nickname:   coalesce(characterNickname, 'None'),
+  isRoyal:    toBoolean(coalesce(characterIsRoyal, 'false')),
+  isAlive:    coalesce(characterIsAlive, 'N/A')
+})
+
+
+// CREAZIONE DEI NODI HOUSES
+LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/mdestefano/GoT2Neo/master/Data/houses.csv' AS row
+CREATE (h:House {
+  name:     row.name,
+  words:    row.words,
+  region:   row.region,
+  seat:     row.seat,
+  lord:     row.lord,
+  coa:      row.coa,
+  alive:    toBoolean(coalesce(row.alive, 'false')),
+  religion: row.religion
+})
+
+
+// CREAZIONE DEI NODI EPISODE
+LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/mdestefano/GoT2Neo/master/Data/episodes_Scores.csv' AS row
+MERGE (e:Episode {
+  title:                row.title,
+  season:               toInt(row.season),
+  episode:              toInt(row.episodeInSeason),
+  episodeGlobal:        toInt(row.episode),
+  director:             row.director,
+  writer:               row.writer,
+  airDate:              row.airDate,
+  viewers:              toFloat(row.viewers),
+  IMBD_Score:           toFloat(row.IMDB_Score),
+  RottenTomatoes_Score: toFloat(row.RottenTomatoes_Score)
+})
+
+
+// CREAZIONE DEI NODI SCENES
+CALL apoc.load.json("file:///scenes.json") YIELD value
+WITH value.episodes AS episodes
+WITH [episode IN episodes | episode] AS episodesL
+FOREACH (episode IN episodesL |
+  FOREACH (scenesEpisode IN episode.scenes |
+    FOREACH (scene IN scenesEpisode |
+      CREATE(s:Scene {
+        id:          scene.id,
+        start:       localtime(scene.sceneStart),
+        end:         localtime(scene.sceneEnd),
+        season:      episode.seasonNum,
+        episode:     episode.episodeNum,
+        characters:  scene.characters,
+        location:    scene.location,
+        sublocation: coalesce(scene.subLocation, '')
+      })
+    )
+  )
+)
+
+
+// CREAZIONE DEI NODI LOCATION
+CALL apoc.load.json("file:///locations.json") YIELD value
+WITH value.regions AS regions
+WITH [region IN regions | region] AS regions
+FOREACH (region IN regions |
+  MERGE(s:Location {
+    name:         region.location,
+    sublocations: region.subLocation
+  })
+)
+
+
+// CREAZIONE DEI NODI EVENTS
+CALL apoc.load.json("file:///sexes.json") YIELD value
+WITH value.sexes AS sexes
+UNWIND sexes AS sexesU
+MERGE (e:Event {sceneId: sexesU.sceneId})
+SET e = {
+  sceneId:  sexesU.sceneId,
+  main:     sexesU.character,
+  involved: sexesU.with,
+  kind:     'sex',
+  type:     sexesU.type,
+  when:     sexesU.when
+}

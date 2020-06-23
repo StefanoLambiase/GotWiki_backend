@@ -1,0 +1,24 @@
+// Creazione dei nodi "House"
+
+LOAD CSV WITH HEADERS FROM 'file:///houses.csv' AS row
+CREATE (h:House {
+  name:     row.name,
+  words:    row.words,
+  region:   row.region,
+  seat:     row.seat,
+  lord:     row.lord,
+  coa:      row.coa,
+  alive:    toBoolean(coalesce(row.alive, 'false')),
+  religion: row.religion
+});
+
+
+// Creazione della relazione "BELONGS_TO" tra nodi "Character" e nodi "House"
+
+CALL apoc.load.json("file:///characters.json")
+YIELD value
+UNWIND value.characters AS characters
+UNWIND characters.houseName AS houseName
+WITH houseName, characters.characterName AS characterName
+MATCH (c:Character {name: characterName}), (h:House {name: houseName})
+MERGE (c)-[:BELONGS_TO]->(h);
