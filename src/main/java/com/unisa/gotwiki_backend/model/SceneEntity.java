@@ -28,10 +28,8 @@ public class SceneEntity {
     @Relationship(type = "si svolge in")
     private EpisodeEntity episodeEntity;
 
-    /*
-    DA INSERIRE APPENA SI IMPLEMENTA LOCATION
     @Relationship(type = "avviene nella")
-    private LocationEntity locationEntity;*/
+    private LocationEntity locationEntity;
 
     public String getLocation() {
         return location;
