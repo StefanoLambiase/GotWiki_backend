@@ -1,0 +1,22 @@
+// Script usato per rimuovere la doppia casata dalle 7 entry che la possiedono.
+
+MATCH (n:Character{actor:"Kate Dickie"})
+SET n.house = "Arryn";
+
+MATCH (n:Character{name:"Catelyn Stark"})
+SET n.house = "Stark";
+
+MATCH (n:Character{name:"Cersei Lannister"})
+SET n.house = "Lanninster";
+
+MATCH (n:Character{name:"Jon Snow"})
+SET n.house = "Stark";
+
+MATCH (n:Character{name:"Elia Martell"})
+SET n.house = "Martell";
+
+MATCH (n:Character{name:"Walda Bolton"})
+SET n.house = "Bolton";
+
+MATCH (n:Character{name:"Jeor Mormont"})
+SET n.house = "Mormont";

@@ -11,8 +11,8 @@ public class CharacterService {
     @Autowired
     CharacterRepository characterRepository;
 
-    public CharacterEntity findArya() {
-        return characterRepository.findArya();
+    public Iterable<CharacterEntity> findAll(){
+        return characterRepository.findAll();
     }
 
     public Iterable<CharacterEntity> findAllByHouse(String house){

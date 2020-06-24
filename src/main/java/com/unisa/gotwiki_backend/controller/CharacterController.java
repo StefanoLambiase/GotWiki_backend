@@ -9,14 +9,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/characters")
+@RequestMapping("/character")
 public class CharacterController {
 
     @Autowired
     CharacterService characterService;
 
+    @GetMapping("/")
+    Iterable<CharacterEntity> findAll(){
+        return characterService.findAll();
+    }
+
     @GetMapping("/by-house")
-    Iterable<CharacterEntity> getAllByHouses(@RequestParam String house){
+    Iterable<CharacterEntity> findAllByHouse(@RequestParam String house){
         return characterService.findAllByHouse(house);
     }
 
@@ -25,8 +30,4 @@ public class CharacterController {
         return characterService.findByName(name);
     }
 
-    @GetMapping("/Arya")
-    CharacterEntity findArya(){
-        return characterService.findArya();
-    }
 }

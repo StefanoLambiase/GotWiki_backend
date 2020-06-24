@@ -6,12 +6,18 @@ import org.springframework.data.neo4j.repository.Neo4jRepository;
 
 public interface CharacterRepository extends Neo4jRepository<CharacterEntity, Long> {
 
+    @Query("MATCH (n:Character)\n" +
+            "WHERE apoc.meta.type(n.house) = \"String[]\"\n" +
+            "RETURN n;")
+    Iterable<CharacterEntity> findAllWithMoreHouse();
+
+    @Query("MATCH (n:Character)\n" +
+            "WHERE apoc.meta.type(n.house) <> \"String[]\"\n" +
+            "RETURN n;")
+    Iterable<CharacterEntity> findAllWithSingleHouse();
+
     Iterable<CharacterEntity> findAllByHouse(String house);
 
     CharacterEntity findByName(String name);
 
-    @Query("MATCH (n:Character)\n" +
-            "WHERE n.name = 'Arya Stark'\n" +
-            "RETURN n")
-    CharacterEntity findArya();
 }
