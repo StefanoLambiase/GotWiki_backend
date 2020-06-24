@@ -1,0 +1,175 @@
+// Creazione dei nodi
+
+CALL apoc.load.json("file:///characters.json")
+YIELD value
+UNWIND value.characters AS characters
+WITH characters.characterName AS characterName,
+     characters.houseName AS houseName,
+     characters.actorName AS actorName,
+     characters.characterImageFull AS characterImageFull,
+     characters.characterImageThumb AS characterImageThumb,
+     characters.nickname AS characterNickname,
+     characters.royal AS characterIsRoyal,
+     characters.alive AS characterIsAlive
+MERGE (c:Character {
+  name:       characterName,
+  house:      coalesce(houseName, 'unknown'),
+  actor:      coalesce(actorName, 'N/A'),
+  imageFull:  coalesce(characterImageFull, 'N/A'),
+  imageThumb: coalesce(characterImageThumb, 'N/A'),
+  nickname:   coalesce(characterNickname, 'None'),
+  isRoyal:    toBoolean(coalesce(characterIsRoyal, 'false')),
+  isAlive:    toString(coalesce(characterIsAlive, 'N/A'))
+});
+
+
+// Creazione della relazione "SIBLING_OF" tra nodi "Character"
+
+CALL apoc.load.json("file:///characters.json")
+YIELD value
+UNWIND value.characters AS characters
+WITH characters.characterName AS characterName,
+     characters.siblings AS siblings
+MATCH (c1:Character {name: characterName}), (c2:Character)
+  WHERE c2.name IN siblings
+MERGE (c1)-[r:SIBLING_OF]->(c2);
+
+
+// Creazione della relazione "SON_OF" tra nodi "Character"
+
+CALL apoc.load.json("file:///characters.json")
+YIELD value
+UNWIND value.characters AS characters
+WITH characters.characterName AS characterName,
+     characters.parentOf AS parentOf
+MATCH (c1:Character {name: characterName}), (c2:Character)
+  WHERE c2.name IN parentOf
+MERGE (c2)-[r:SON_OF]->(c1);
+
+
+// Creazione della relazione "ENGAGED" tra nodi "Character"
+
+CALL apoc.load.json("file:///characters.json")
+YIELD value
+UNWIND value.characters AS characters
+WITH characters.characterName AS characterName,
+     characters.marriedEngaged AS engaged
+MATCH (c1:Character {name: characterName}), (c2:Character)
+  WHERE c2.name IN engaged
+MERGE (c1)-[r:ENGAGED]->(c2);
+
+
+// Creazione della relazione "KILLED" tra nodi "Character"
+LOAD CSV WITH HEADERS FROM 'file:///game-of-thrones-deaths-data.csv'
+AS row
+MATCH (c1:Character {name: row.killer}), (c2:Character {name: row.character_killed})
+CREATE (c1)-[r:KILLED {
+  season:     toInteger(row.season),
+  episode:    toInteger(row.episode),
+  method:     row.method,
+  methodCat:  row.method_cat,
+  reason:     row.reason,
+  location:   row.location,
+  allegiance: row.allegiance,
+  importance: toInteger(coalesce(row.importance, '0'))
+}]->(c2);
+
+// Creazione dei nodi "House"
+
+LOAD CSV WITH HEADERS FROM 'file:///houses.csv' AS row
+CREATE (h:House {
+  name:     row.name,
+  words:    row.words,
+  region:   row.region,
+  seat:     row.seat,
+  lord:     row.lord,
+  coa:      row.coa,
+  alive:    toBoolean(coalesce(row.alive, 'false')),
+  religion: row.religion
+});
+
+
+// Creazione della relazione "BELONGS_TO" tra nodi "Character" e nodi "House"
+
+CALL apoc.load.json("file:///characters.json")
+YIELD value
+UNWIND value.characters AS characters
+UNWIND characters.houseName AS houseName
+WITH houseName, characters.characterName AS characterName
+MATCH (c:Character {name: characterName}), (h:House {name: houseName})
+MERGE (c)-[:BELONGS_TO]->(h);
+
+// Creazione dei nodi "Episode"
+
+LOAD CSV WITH HEADERS FROM 'file:///episodes_Scores.csv' AS row
+MERGE (e:Episode {
+  title:                row.title,
+  season:               toInteger(row.season),
+  episode:              toInteger(row.episodeInSeason),
+  episodeGlobal:        toInteger(row.episode),
+  director:             row.director,
+  writer:               row.writer,
+  airDate:              row.airDate,
+  viewers:              toFloat(row.viewers),
+  IMBD_Score:           toFloat(row.IMDB_Score),
+  RottenTomatoes_Score: toFloat(row.RottenTomatoes_Score)
+});
+
+// Creazione dei nodi "Scene"
+
+CALL apoc.load.json("file:///scenes.json") YIELD value
+WITH value.episodes AS episodes
+WITH [episode IN episodes | episode] AS episodesL
+FOREACH (episode IN episodesL |
+  FOREACH (scenesEpisode IN episode.scenes |
+    FOREACH (scene IN scenesEpisode |
+      CREATE(s:Scene {
+        id:          scene.id,
+        start:       localtime(scene.sceneStart),
+        end:         localtime(scene.sceneEnd),
+        season:      episode.seasonNum,
+        episode:     episode.episodeNum,
+        characters:  scene.characters,
+        location:    scene.location,
+        sublocation: coalesce(scene.subLocation, '')
+      })
+    )
+  )
+);
+
+
+// Creazione relazione "BELONGS_TO" tra i nodi "Scene" e i nodi "Episode"
+
+MATCH (e:Episode), (s:Scene {season: e.season, episode: e.episode})
+MERGE (s)-[:BELONGS_TO]->(e);
+
+// Creazione relazione "APPEARS_IN" tra i nodi "Character" e "Scene"
+
+MATCH (s:Scene), (c:Character)
+  WHERE c.name IN s.characters
+MERGE (c)-[:APPEARS_IN]->(s);
+
+
+// Creazione dei nodi "Location"
+
+CALL apoc.load.json("file:///locations.json") YIELD value
+WITH value.regions AS regions
+WITH [region IN regions | region] AS regions
+FOREACH (region IN regions |
+  MERGE(s:Location {
+    name:         region.location,
+    sublocations: region.subLocation
+  })
+);
+
+
+// Creazione della relazione "SET_IN" tra i nodi "Scene" e i nodi "Location"
+
+MATCH (s:Scene), (l:Location {name: s.location})
+MERGE (s)-[:SET_IN]->(l);
+
+
+CREATE INDEX FOR (n:Character) ON (n.name);
+CREATE INDEX FOR (n:House) ON (n.name);
+CREATE INDEX FOR (n:Episode) ON (n.season);
+CREATE INDEX FOR (n:Scene) ON (n.season);
