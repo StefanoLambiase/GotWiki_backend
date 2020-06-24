@@ -3,7 +3,6 @@ package com.unisa.gotwiki_backend.model;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 
-import java.util.Date;
 
 @NodeEntity("Episode")
 public class EpisodeEntity {
@@ -14,7 +13,7 @@ public class EpisodeEntity {
     private Float IMBD_Score;
     private String writer;
     private String title;
-    private String airDate;   
+    private String airDate;
     private Integer season;
     private Float viewers;
     private Integer episodeGlobal;
