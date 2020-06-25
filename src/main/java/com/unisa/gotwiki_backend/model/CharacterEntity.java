@@ -1,19 +1,23 @@
 package com.unisa.gotwiki_backend.model;
 
+import com.unisa.gotwiki_backend.converter.CharacterHouseConverter;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
+import org.neo4j.ogm.annotation.typeconversion.Convert;
 
 import java.util.List;
 
 @NodeEntity("Character")
 public class CharacterEntity {
 
-    @Id private Long id;
+    @Id
+    private Long id;
 
     private String name;
     private String actor;
-    private String house;
+    @Convert(CharacterHouseConverter.class) private
+    List<String> house;
     private String imageFull;
     private String imageThumb;
     private String nickname;
@@ -54,11 +58,11 @@ public class CharacterEntity {
         this.actor = actor;
     }
 
-    public String getHouse() {
+    public List<String> getHouse() {
         return house;
     }
 
-    public void setHouse(String house) {
+    public void setHouse(List<String> house) {
         this.house = house;
     }
 

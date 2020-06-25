@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/character")
+@RequestMapping("/characters")
 public class CharacterController {
 
     @Autowired
@@ -18,6 +18,16 @@ public class CharacterController {
     @GetMapping("/")
     Iterable<CharacterEntity> findAll(){
         return characterService.findAll();
+    }
+
+    @GetMapping("/test")
+    void findAllTest(){
+        for(CharacterEntity characterEntity : characterService.findAll()){
+            System.out.println(characterEntity.getName());
+            if(characterEntity.getHouse().size() > 1){
+                System.out.println("   " + characterEntity.getHouse().toString());
+            }
+        }
     }
 
     @GetMapping("/by-house")
