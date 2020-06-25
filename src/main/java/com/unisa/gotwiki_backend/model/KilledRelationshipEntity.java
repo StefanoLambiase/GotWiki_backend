@@ -19,8 +19,8 @@ public class KilledRelationshipEntity {
     private String reason;
     private int episode;
 
-    @StartNode private CharacterEntity characterKilled;
-    @EndNode private CharacterEntity characterKiller;
+    @StartNode private CharacterEntity characterKiller;
+    @EndNode private CharacterEntity characterKilled;
 
     /* Getters & Setters */
 

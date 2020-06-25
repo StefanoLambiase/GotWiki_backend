@@ -16,8 +16,8 @@ public class CharacterEntity {
 
     private String name;
     private String actor;
-    @Convert(CharacterHouseConverter.class) private
-    List<String> house;
+    @Convert(CharacterHouseConverter.class)
+    private List<String> house;
     private String imageFull;
     private String imageThumb;
     private String nickname;
