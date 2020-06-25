@@ -25,10 +25,10 @@ public class SceneEntity {
     @Property("id")
     private Integer identifier;     //da cambiare nel db
 
-    @Relationship(type = "si svolge in")
+    @Relationship(type = "BELONGS_TO")
     private EpisodeEntity episodeEntity;
 
-    @Relationship(type = "avviene nella")
+    @Relationship(type = "SET_IN")
     private LocationEntity locationEntity;
 
     public String getLocation() {
@@ -77,6 +77,30 @@ public class SceneEntity {
 
     public void setEnd(LocalTime end) {
         this.end = end;
+    }
+    
+    public Integer getIdentifier() {
+        return identifier;
+    }
+
+    public void setIdentifier(Integer identifier) {
+        this.identifier = identifier;
+    }
+
+    public EpisodeEntity getEpisodeEntity() {
+        return episodeEntity;
+    }
+
+    public void setEpisodeEntity(EpisodeEntity episodeEntity) {
+        this.episodeEntity = episodeEntity;
+    }
+
+    public LocationEntity getLocationEntity() {
+        return locationEntity;
+    }
+
+    public void setLocationEntity(LocationEntity locationEntity) {
+        this.locationEntity = locationEntity;
     }
 
     public LocalTime getStart() {
