@@ -37,7 +37,9 @@ public class CharacterController {
 
     @GetMapping("/by-name")
     CharacterEntity findByName(@RequestParam String name){
-        return characterService.findByName(name);
+        CharacterEntity characterEntity = characterService.findByName(name);
+        System.out.println("   " + characterEntity.toString());
+        return characterEntity;
     }
 
 }

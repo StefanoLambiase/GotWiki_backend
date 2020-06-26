@@ -1,6 +1,7 @@
 package com.unisa.gotwiki_backend.model;
 
 import com.unisa.gotwiki_backend.converter.CharacterHouseConverter;
+import com.unisa.gotwiki_backend.converter.CharacterIsAliveConverter;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
@@ -22,7 +23,8 @@ public class CharacterEntity {
     private String imageThumb;
     private String nickname;
     private Boolean isRoyal;
-    private String isAlive;
+    @Convert(CharacterIsAliveConverter.class)
+    private Boolean isAlive;
 
     @Relationship(type = "SIBLING_OF") private List<CharacterEntity> siblings;
     @Relationship(type = "SON_OF") private List<CharacterEntity> parents;
@@ -98,12 +100,12 @@ public class CharacterEntity {
         isRoyal = royal;
     }
 
-    public String getIsAlive() {
+    public Boolean getAlive() {
         return isAlive;
     }
 
-    public void setIsAlive(String isAlive) {
-        this.isAlive = isAlive;
+    public void setAlive(Boolean alive) {
+        isAlive = alive;
     }
 
     public List<CharacterEntity> getSiblings() {
@@ -152,5 +154,28 @@ public class CharacterEntity {
 
     public void setKilledRelationshipEntity(KilledRelationshipEntity killedRelationshipEntity) {
         this.killedRelationshipEntity = killedRelationshipEntity;
+    }
+
+    /* toString */
+
+    @Override
+    public String toString() {
+        return "CharacterEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", actor='" + actor + '\'' +
+                ", house=" + house +
+                ", imageFull='" + imageFull + '\'' +
+                ", imageThumb='" + imageThumb + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", isRoyal=" + isRoyal +
+                ", isAlive=" + isAlive +
+                ", siblings=" + siblings +
+                ", parents=" + parents +
+                ", partners=" + partners +
+                ", belongingHouses=" + belongingHouses +
+                ", apparitionScenes=" + apparitionScenes +
+                ", killedRelationshipEntity=" + killedRelationshipEntity +
+                '}';
     }
 }
