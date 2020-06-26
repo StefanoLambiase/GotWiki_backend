@@ -2,8 +2,6 @@ package com.unisa.gotwiki_backend.converter;
 
 import org.neo4j.ogm.typeconversion.AttributeConverter;
 
-import java.util.List;
-
 public class CharacterIsAliveConverter implements AttributeConverter<Boolean, Object> {
     @Override
     public Object toGraphProperty(Boolean aBoolean) {

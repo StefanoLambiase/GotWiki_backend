@@ -31,7 +31,6 @@ public class CharacterEntity {
     @Relationship(type = "ENGAGED") private List<CharacterEntity> partners;
     @Relationship(type = "BELONGS_TO") private List<HouseEntity> belongingHouses;
     @Relationship(type = "APPEARS_IN") private List<SceneEntity> apparitionScenes;
-
     @Relationship(type = "KILLED") private KilledRelationshipEntity killedRelationshipEntity;
 
     /* Getters & Setters */
@@ -156,7 +155,7 @@ public class CharacterEntity {
         this.killedRelationshipEntity = killedRelationshipEntity;
     }
 
-    /* toString */
+    /* Overrided methods */
 
     @Override
     public String toString() {

@@ -1,12 +1,15 @@
 package com.unisa.gotwiki_backend.controller;
 
 import com.unisa.gotwiki_backend.model.CharacterEntity;
+import com.unisa.gotwiki_backend.model.queryResult.CharacterInLongestScene;
 import com.unisa.gotwiki_backend.service.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/characters")
@@ -40,6 +43,17 @@ public class CharacterController {
         CharacterEntity characterEntity = characterService.findByName(name);
         System.out.println("   " + characterEntity.toString());
         return characterEntity;
+    }
+
+    /* Complex Services */
+
+    @GetMapping("/in-longest-scenes")
+    public Iterable<CharacterInLongestScene> findCharactersInLongestScenes(@RequestParam int maxNumberOfLongestScenes){
+        Iterable<CharacterInLongestScene> characterInLongestScenes = characterService.findCharactersInLongestScenes(maxNumberOfLongestScenes);
+        for(CharacterInLongestScene characterInLongestScene : characterInLongestScenes){
+            System.out.println(characterInLongestScene.toString());
+        }
+        return characterInLongestScenes;
     }
 
 }
