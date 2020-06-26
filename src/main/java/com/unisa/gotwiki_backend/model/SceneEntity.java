@@ -78,7 +78,7 @@ public class SceneEntity {
     public void setEnd(LocalTime end) {
         this.end = end;
     }
-    
+
     public Integer getIdentifier() {
         return identifier;
     }

@@ -15,8 +15,28 @@ public class EpisodeController {
     @Autowired
     EpisodeService episodeService;
 
+    @GetMapping("/")
+    public Iterable<EpisodeEntity> findAll(){
+        return episodeService.findAll();
+    }
+
     @GetMapping("/by-season")
     public Iterable<EpisodeEntity> findAllBySeason(@RequestParam Integer season){
         return episodeService.findAllBySeason(season);
+    }
+
+    @GetMapping("/by-writer")
+    public Iterable<EpisodeEntity> findAllByWriter(@RequestParam String writer){
+        return episodeService.findAllByWriter(writer);
+    }
+
+    @GetMapping("/by-title")
+    public Iterable<EpisodeEntity> findAllByTitle(@RequestParam String title){
+        return episodeService.findAllByTitle(title);
+    }
+
+    @GetMapping("/by-date")
+    public Iterable<EpisodeEntity> findAllByAirDate(@RequestParam String airDate){
+        return episodeService.findAllByAirDate(airDate);
     }
 }

@@ -18,7 +18,7 @@ public class EpisodeEntity {
     private Float viewers;
     private Integer episodeGlobal;
     private Integer episode;
-    private Float RottenTomatoes_Score;
+    private Float rottenTomatoes_Score;
 
     /* Getters & Setters*/
 
@@ -87,10 +87,10 @@ public class EpisodeEntity {
     }
 
     public Float getRottenTomatoes_Score() {
-        return RottenTomatoes_Score;
+        return rottenTomatoes_Score;
     }
 
     public void setRottenTomatoes_Score(Float rottenTomatoes_Score) {
-        RottenTomatoes_Score = rottenTomatoes_Score;
+        this.rottenTomatoes_Score = rottenTomatoes_Score;
     }
 }
