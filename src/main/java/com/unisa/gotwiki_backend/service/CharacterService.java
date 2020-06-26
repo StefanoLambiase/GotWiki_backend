@@ -2,6 +2,8 @@ package com.unisa.gotwiki_backend.service;
 
 import com.unisa.gotwiki_backend.model.CharacterEntity;
 import com.unisa.gotwiki_backend.model.queryResult.CharacterInLongestScene;
+import com.unisa.gotwiki_backend.model.queryResult.CharacterKillCount;
+import com.unisa.gotwiki_backend.model.queryResult.MurderAmongRelatives;
 import com.unisa.gotwiki_backend.repository.CharacterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,4 +34,17 @@ public class CharacterService {
     public Iterable<CharacterInLongestScene> findCharactersInLongestScenes(int maxNumberOfLongestScenes){
         return characterRepository.findCharactersInLongestScenes(maxNumberOfLongestScenes);
     }
+
+    public Iterable<CharacterKillCount> findAllKillCountPerCategoryPerCharacter(){
+        return characterRepository.findAllKillCountPerCategoryPerCharacter();
+    }
+
+    public Iterable<MurderAmongRelatives> findAllMurdersAmongRelatives(){
+        return characterRepository.findAllMurdersAmongRelatives();
+    }
+
+    public Iterable<CharacterEntity> findAllSuicideCharacter(){
+        return characterRepository.findAllSuicideCharacter();
+    }
+
 }

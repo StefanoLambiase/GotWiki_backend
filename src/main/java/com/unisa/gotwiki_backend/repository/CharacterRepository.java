@@ -2,6 +2,8 @@ package com.unisa.gotwiki_backend.repository;
 
 import com.unisa.gotwiki_backend.model.CharacterEntity;
 import com.unisa.gotwiki_backend.model.queryResult.CharacterInLongestScene;
+import com.unisa.gotwiki_backend.model.queryResult.CharacterKillCount;
+import com.unisa.gotwiki_backend.model.queryResult.MurderAmongRelatives;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 
@@ -52,6 +54,32 @@ public interface CharacterRepository extends Neo4jRepository<CharacterEntity, Lo
             "RETURN DISTINCT c AS characterEntity, minutes AS sceneTimeInMinutes")
     Iterable<CharacterInLongestScene> findCharactersInLongestScenes(int maxNumberOfLongestScenes);
 
+    @Query("MATCH (c:Character)-[k:KILLED]->(:Character)\n" +
+            "WITH c, k.methodCat AS mc, count(k.methodCat) AS mcCount\n" +
+            "   ORDER BY mcCount DESC\n" +
+            "RETURN c AS CharacterEntity, collect(mc) AS killMethodCategories, collect(mcCount) AS killCountPerCategories")
+    Iterable<CharacterKillCount> findAllKillCountPerCategoryPerCharacter();
 
+    @Query("MATCH (killer:Character)-[murder:KILLED]->(killed:Character)\n" +
+            "\n" +
+            "MATCH path = (killer)-->(killed)\n" +
+            "WHERE ANY (r IN relationships(path)\n" +
+            "    WHERE\n" +
+            "        type(r) = 'SON_OF' OR\n" +
+            "        type(r) = 'SIBLING_OF' OR\n" +
+            "        type(r) = 'ENGAGED'\n" +
+            ")\n" +
+            "\n" +
+            "RETURN killer, murder, killed, path")
+    Iterable<MurderAmongRelatives> findAllMurdersAmongRelatives();
+
+    @Query("MATCH (c1:Character)-[suicide:KILLED]->(c2:Character)\n" +
+            "WHERE ID(c1) = ID(c2)\n" +
+            "\n" +
+            "WITH c1, count(suicide) AS nSuicide\n" +
+            "WHERE nSuicide = 1\n" +
+            "\n" +
+            "RETURN c1")
+    Iterable<CharacterEntity> findAllSuicideCharacter();
 
 }

@@ -8,8 +8,13 @@ import java.util.List;
 public class DeathCountPerCategory {
 
     private String methodCategory;
-    private int deathCount;
+    private Long deathCount;
     private List<String> deadCharacterNames;
+
+    public DeathCountPerCategory(String methodCategory, Long deathCount) {
+        this.methodCategory = methodCategory;
+        this.deathCount = deathCount;
+    }
 
     /* Getters & Setters */
 
@@ -21,11 +26,11 @@ public class DeathCountPerCategory {
         this.methodCategory = methodCategory;
     }
 
-    public int getDeathCount() {
+    public Long getDeathCount() {
         return deathCount;
     }
 
-    public void setDeathCount(int deathCount) {
+    public void setDeathCount(Long deathCount) {
         this.deathCount = deathCount;
     }
 
