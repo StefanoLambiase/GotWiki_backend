@@ -1,4 +1,4 @@
-package com.unisa.gotwiki_backend.model.queryResult;
+package com.unisa.gotwiki_backend.model.queryResult.killed;
 
 import org.springframework.data.neo4j.annotation.QueryResult;
 
@@ -10,11 +10,6 @@ public class DeathCountPerCategory {
     private String methodCategory;
     private Long deathCount;
     private List<String> deadCharacterNames;
-
-    public DeathCountPerCategory(String methodCategory, Long deathCount) {
-        this.methodCategory = methodCategory;
-        this.deathCount = deathCount;
-    }
 
     /* Getters & Setters */
 

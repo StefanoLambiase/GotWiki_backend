@@ -1,4 +1,4 @@
-package com.unisa.gotwiki_backend.model.queryResult;
+package com.unisa.gotwiki_backend.model.queryResult.character;
 
 import com.unisa.gotwiki_backend.model.CharacterEntity;
 import org.springframework.data.neo4j.annotation.QueryResult;

@@ -1,17 +1,40 @@
 package com.unisa.gotwiki_backend.repository;
 
 import com.unisa.gotwiki_backend.model.KilledRelationshipEntity;
-import com.unisa.gotwiki_backend.model.queryResult.DeathCountPerCategory;
+import com.unisa.gotwiki_backend.model.queryResult.killed.DeathCountPerCategory;
+import com.unisa.gotwiki_backend.model.queryResult.killed.KillPerImportance;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 
 public interface KilledRelationshipRepository extends Neo4jRepository<KilledRelationshipEntity, Long> {
 
+    /* Search queries on main attributes */
+
     Iterable<KilledRelationshipEntity> findAll();
+
+    Iterable<KilledRelationshipEntity> findAllByLocation(String location);
+
+    Iterable<KilledRelationshipEntity> findAllBySeason(int season);
+
+    Iterable<KilledRelationshipEntity> findAllByMethodCat(String methodCat);
+
+    Iterable<KilledRelationshipEntity> findAllByEpisodeAndSeason(int episode, int season);
+
+    Iterable<KilledRelationshipEntity> findAllByImportance(int importance);
+
+    Iterable<KilledRelationshipEntity> findAllByAllegiance(String allegiance);
 
     @Query("MATCH (c1:Character{name:$name})-[kill:KILLED]->(c2:Character)\n" +
             "RETURN c1, kill, c2")
     Iterable<KilledRelationshipEntity> findAllByCharacterKillerName(String name);
+
+    /* Complex queries */
+
+    @Query("MATCH (c1)-[k:KILLED]->(c2)\n" +
+            "WHERE k.importance < $maxImportanceNumber AND c1.name <> c2.name\n" +
+            "\n" +
+            "RETURN DISTINCT c1.name AS killerName, k.episode AS episode, k.season AS season, k.reason AS reason, count(k) AS numberOfKills, c2.name AS killedName")
+    Iterable<KillPerImportance> findAllByMaxImportance(int maxImportanceNumber);
 
     @Query("MATCH (:Character)-[k:KILLED]->(c:Character)\n" +
             "WHERE k.methodCat IS NOT NULL\n" +

@@ -1,9 +1,9 @@
 package com.unisa.gotwiki_backend.repository;
 
 import com.unisa.gotwiki_backend.model.CharacterEntity;
-import com.unisa.gotwiki_backend.model.queryResult.CharacterInLongestScene;
-import com.unisa.gotwiki_backend.model.queryResult.CharacterKillCount;
-import com.unisa.gotwiki_backend.model.queryResult.MurderAmongRelatives;
+import com.unisa.gotwiki_backend.model.queryResult.character.CharacterInLongestScene;
+import com.unisa.gotwiki_backend.model.queryResult.character.CharacterKillCount;
+import com.unisa.gotwiki_backend.model.queryResult.character.MurderAmongRelatives;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 
