@@ -91,4 +91,21 @@ public class HouseEntity {
     public void setAlive(boolean alive) {
         this.alive = alive;
     }
+
+    /* Overrided methods */
+
+    @Override
+    public String toString() {
+        return "HouseEntity{" +
+                "id=" + id +
+                ", religion='" + religion + '\'' +
+                ", seat='" + seat + '\'' +
+                ", words='" + words + '\'' +
+                ", lord='" + lord + '\'' +
+                ", region='" + region + '\'' +
+                ", coa='" + coa + '\'' +
+                ", name='" + name + '\'' +
+                ", alive=" + alive +
+                '}';
+    }
 }
