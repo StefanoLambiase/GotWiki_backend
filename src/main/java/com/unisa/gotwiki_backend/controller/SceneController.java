@@ -19,4 +19,29 @@ public class SceneController {
     public Iterable<SceneEntity> findAllBySeason(@RequestParam Integer season){
         return sceneService.findAllBySeason(season);
     }
+
+    @GetMapping("/by-episode")
+    public Iterable<SceneEntity> findAllByEpisode(Integer episode){
+        return sceneService.findAllByEpisode(episode);
+    }
+
+    @GetMapping("/by-location")
+    public Iterable<SceneEntity> findAllByLocation(String location){
+        return sceneService.findAllByLocation(location);
+    }
+
+    @GetMapping("/by-sublocation")
+    public Iterable<SceneEntity> findAllBySublocation(String subLocation){
+        return sceneService.findAllBySublocation(subLocation);
+    }
+
+    @GetMapping("/longestScenes")
+    public Iterable<SceneEntity> findLongestScenes(Integer minimumTime){
+        return sceneService.findLongestScenes(minimumTime);
+    }
+
+    @GetMapping("/by-character")
+    public Iterable<SceneEntity> findCharacterAppearedInScenes(String character){
+        return sceneService.findCharacterAppearedInScenes(character);
+    }
 }

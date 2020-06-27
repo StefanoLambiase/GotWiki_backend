@@ -39,4 +39,24 @@ public class EpisodeController {
     public Iterable<EpisodeEntity> findAllByAirDate(@RequestParam String airDate){
         return episodeService.findAllByAirDate(airDate);
     }
+
+    @GetMapping("/by-tomatoScore")
+    public Iterable<EpisodeEntity> getByRottenTomatoes_Score(@RequestParam Float tomatoScore){
+        return episodeService.getByRottenTomatoes_Score(tomatoScore);
+    }
+
+    @GetMapping("/by-greaterTomatoScore")
+    public Iterable<EpisodeEntity> getAllGraterThanRottenTomatoes_Score(Float tomatoScore){
+        return episodeService.getAllGraterThanRottenTomatoes_Score(tomatoScore);
+    }
+
+    @GetMapping("/by-greaterIMBD")
+    public Iterable<EpisodeEntity> getAllGreaterThanIMBD_Score(Float scoreIMBD){
+        return episodeService.getAllGreaterThanIMBD_Score(scoreIMBD);
+    }
+
+    @GetMapping("/by-year")
+    public Iterable<EpisodeEntity> getAllEpisodePublishedInSpecifiedYear(String year){
+        return episodeService.getAllEpisodePublishedInSpecifiedYear(year);
+    }
 }

@@ -30,4 +30,20 @@ public class EpisodeService {
     public Iterable<EpisodeEntity> findAllByAirDate(String airDate){
         return episodeRepository.findAllByAirDate(airDate);
     }
+
+    public Iterable<EpisodeEntity> getByRottenTomatoes_Score(Float tomatoScore){
+        return episodeRepository.getByRottenTomatoes_Score(tomatoScore);
+    }
+
+    public Iterable<EpisodeEntity> getAllGraterThanRottenTomatoes_Score(Float tomatoScore){
+        return episodeRepository.getAllGraterThanRottenTomatoes_Score(tomatoScore);
+    }
+
+    public Iterable<EpisodeEntity> getAllGreaterThanIMBD_Score(Float scoreIMBD){
+        return episodeRepository.getAllGreaterThanIMBD_Score(scoreIMBD);
+    }
+
+    public Iterable<EpisodeEntity> getAllEpisodePublishedInSpecifiedYear(String year){
+        return episodeRepository.getAllEpisodePublishedInSpecifiedYear(year);
+    }
 }
