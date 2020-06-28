@@ -1,6 +1,6 @@
 package com.unisa.gotwiki_backend.controller;
 
-import com.unisa.gotwiki_backend.model.CharacterEntity;
+import com.unisa.gotwiki_backend.model.entity.CharacterEntity;
 import com.unisa.gotwiki_backend.model.queryResult.character.CharacterInLongestScene;
 import com.unisa.gotwiki_backend.model.queryResult.character.CharacterKillCount;
 import com.unisa.gotwiki_backend.model.queryResult.character.CharacterSceneCount;

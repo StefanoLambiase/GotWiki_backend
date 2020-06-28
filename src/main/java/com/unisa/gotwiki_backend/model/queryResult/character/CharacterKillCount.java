@@ -1,6 +1,6 @@
 package com.unisa.gotwiki_backend.model.queryResult.character;
 
-import com.unisa.gotwiki_backend.model.CharacterEntity;
+import com.unisa.gotwiki_backend.model.entity.CharacterEntity;
 import org.springframework.data.neo4j.annotation.QueryResult;
 
 import java.util.List;

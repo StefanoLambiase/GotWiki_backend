@@ -1,6 +1,6 @@
 package com.unisa.gotwiki_backend.controller;
 
-import com.unisa.gotwiki_backend.model.SceneEntity;
+import com.unisa.gotwiki_backend.model.entity.SceneEntity;
 import com.unisa.gotwiki_backend.model.queryResult.scene.DeathCountPerScene;
 import com.unisa.gotwiki_backend.service.SceneService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package com.unisa.gotwiki_backend.repository;
 
-import com.unisa.gotwiki_backend.model.EpisodeEntity;
+import com.unisa.gotwiki_backend.model.entity.EpisodeEntity;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 

@@ -1,8 +1,8 @@
 package com.unisa.gotwiki_backend.model.queryResult.scene;
 
-import com.unisa.gotwiki_backend.model.CharacterEntity;
-import com.unisa.gotwiki_backend.model.KilledRelationshipEntity;
-import com.unisa.gotwiki_backend.model.SceneEntity;
+import com.unisa.gotwiki_backend.model.entity.CharacterEntity;
+import com.unisa.gotwiki_backend.model.entity.KilledRelationshipEntity;
+import com.unisa.gotwiki_backend.model.entity.SceneEntity;
 import org.springframework.data.neo4j.annotation.QueryResult;
 
 import java.util.List;

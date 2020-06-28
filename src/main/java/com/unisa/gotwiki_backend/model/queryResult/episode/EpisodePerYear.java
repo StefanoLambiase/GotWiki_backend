@@ -1,6 +1,6 @@
 package com.unisa.gotwiki_backend.model.queryResult.episode;
 
-import com.unisa.gotwiki_backend.model.EpisodeEntity;
+import com.unisa.gotwiki_backend.model.entity.EpisodeEntity;
 import org.springframework.data.neo4j.annotation.QueryResult;
 
 @QueryResult

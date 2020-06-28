@@ -1,6 +1,6 @@
 package com.unisa.gotwiki_backend.controller;
 
-import com.unisa.gotwiki_backend.model.HouseEntity;
+import com.unisa.gotwiki_backend.model.entity.HouseEntity;
 import com.unisa.gotwiki_backend.model.queryResult.house.HouseCharacters;
 import com.unisa.gotwiki_backend.model.queryResult.house.HouseKillCount;
 import com.unisa.gotwiki_backend.service.HouseService;

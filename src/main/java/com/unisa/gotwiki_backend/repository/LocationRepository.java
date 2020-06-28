@@ -1,6 +1,6 @@
 package com.unisa.gotwiki_backend.repository;
 
-import com.unisa.gotwiki_backend.model.LocationEntity;
+import com.unisa.gotwiki_backend.model.entity.LocationEntity;
 import com.unisa.gotwiki_backend.model.queryResult.location.LocationDeathCount;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.Neo4jRepository;

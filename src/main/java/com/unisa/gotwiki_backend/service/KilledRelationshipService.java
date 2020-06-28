@@ -1,6 +1,6 @@
 package com.unisa.gotwiki_backend.service;
 
-import com.unisa.gotwiki_backend.model.KilledRelationshipEntity;
+import com.unisa.gotwiki_backend.model.entity.KilledRelationshipEntity;
 import com.unisa.gotwiki_backend.model.queryResult.killed.DeathCountPerCategory;
 import com.unisa.gotwiki_backend.model.queryResult.killed.DeathCountPerSeason;
 import com.unisa.gotwiki_backend.model.queryResult.killed.KillPerImportance;

@@ -1,6 +1,6 @@
 package com.unisa.gotwiki_backend.controller;
 
-import com.unisa.gotwiki_backend.model.EpisodeEntity;
+import com.unisa.gotwiki_backend.model.entity.EpisodeEntity;
 import com.unisa.gotwiki_backend.service.EpisodeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

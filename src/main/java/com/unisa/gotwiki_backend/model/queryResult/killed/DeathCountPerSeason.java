@@ -1,7 +1,5 @@
 package com.unisa.gotwiki_backend.model.queryResult.killed;
 
-import com.unisa.gotwiki_backend.model.KilledRelationshipEntity;
-
 public class DeathCountPerSeason {
     private Integer season, killCount;
 

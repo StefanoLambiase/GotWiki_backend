@@ -1,6 +1,6 @@
 package com.unisa.gotwiki_backend.model.queryResult.character;
 
-import com.unisa.gotwiki_backend.model.CharacterEntity;
+import com.unisa.gotwiki_backend.model.entity.CharacterEntity;
 
 public class CharacterSceneCount {
     private CharacterEntity characterEntity;

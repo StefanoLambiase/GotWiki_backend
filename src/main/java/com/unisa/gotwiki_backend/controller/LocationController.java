@@ -1,6 +1,6 @@
 package com.unisa.gotwiki_backend.controller;
 
-import com.unisa.gotwiki_backend.model.LocationEntity;
+import com.unisa.gotwiki_backend.model.entity.LocationEntity;
 import com.unisa.gotwiki_backend.model.queryResult.location.LocationDeathCount;
 import com.unisa.gotwiki_backend.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;

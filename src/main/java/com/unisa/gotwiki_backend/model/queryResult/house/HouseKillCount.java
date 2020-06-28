@@ -1,6 +1,6 @@
 package com.unisa.gotwiki_backend.model.queryResult.house;
 
-import com.unisa.gotwiki_backend.model.HouseEntity;
+import com.unisa.gotwiki_backend.model.entity.HouseEntity;
 import org.springframework.data.neo4j.annotation.QueryResult;
 
 @QueryResult

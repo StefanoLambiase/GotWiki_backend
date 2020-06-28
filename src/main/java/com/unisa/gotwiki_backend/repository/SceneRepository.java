@@ -1,6 +1,6 @@
 package com.unisa.gotwiki_backend.repository;
 
-import com.unisa.gotwiki_backend.model.SceneEntity;
+import com.unisa.gotwiki_backend.model.entity.SceneEntity;
 import com.unisa.gotwiki_backend.model.queryResult.scene.DeathCountPerScene;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.Neo4jRepository;

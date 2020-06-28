@@ -1,11 +1,10 @@
 package com.unisa.gotwiki_backend.service;
 
-import com.unisa.gotwiki_backend.model.HouseEntity;
+import com.unisa.gotwiki_backend.model.entity.HouseEntity;
 import com.unisa.gotwiki_backend.model.queryResult.house.HouseCharacters;
 import com.unisa.gotwiki_backend.model.queryResult.house.HouseKillCount;
 import com.unisa.gotwiki_backend.repository.HouseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.stereotype.Service;
 
 @Service

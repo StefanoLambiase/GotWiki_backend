@@ -1,4 +1,4 @@
-package com.unisa.gotwiki_backend.model;
+package com.unisa.gotwiki_backend.model.entity;
 
 import org.neo4j.ogm.annotation.EndNode;
 import org.neo4j.ogm.annotation.Id;

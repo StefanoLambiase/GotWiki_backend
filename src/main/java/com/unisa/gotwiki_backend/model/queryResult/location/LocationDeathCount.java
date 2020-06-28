@@ -1,6 +1,6 @@
 package com.unisa.gotwiki_backend.model.queryResult.location;
 
-import com.unisa.gotwiki_backend.model.LocationEntity;
+import com.unisa.gotwiki_backend.model.entity.LocationEntity;
 import org.springframework.data.neo4j.annotation.QueryResult;
 
 @QueryResult

@@ -1,4 +1,4 @@
-package com.unisa.gotwiki_backend.model;
+package com.unisa.gotwiki_backend.model.entity;
 
 import com.unisa.gotwiki_backend.converter.CharacterHouseConverter;
 import com.unisa.gotwiki_backend.converter.CharacterIsAliveConverter;
