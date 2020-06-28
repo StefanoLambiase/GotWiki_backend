@@ -24,14 +24,17 @@ public class CharacterController {
         return characterService.findAll();
     }
 
-    @GetMapping("/test")
-    void findAllTest(){
-        for(CharacterEntity characterEntity : characterService.findAll()){
-            System.out.println(characterEntity.getName());
-            if(characterEntity.getHouse().size() > 1){
-                System.out.println("   " + characterEntity.getHouse().toString());
-            }
-        }
+
+    @GetMapping("/by-name")
+    CharacterEntity findByName(@RequestParam String name){
+        CharacterEntity characterEntity = characterService.findByName(name);
+        System.out.println("   " + characterEntity.toString());
+        return characterEntity;
+    }
+
+    @GetMapping("/by-actor")
+    public CharacterEntity findByActor(@RequestParam String actorName){
+        return characterService.findByActor(actorName);
     }
 
     @GetMapping("/by-house")
@@ -39,11 +42,34 @@ public class CharacterController {
         return characterService.findAllByHouse(house);
     }
 
-    @GetMapping("/by-name")
-    CharacterEntity findByName(@RequestParam String name){
-        CharacterEntity characterEntity = characterService.findByName(name);
-        System.out.println("   " + characterEntity.toString());
-        return characterEntity;
+    @GetMapping("/by-isRoyal")
+    public Iterable<CharacterEntity> findAllByIsRoyal(@RequestParam Boolean isRoyal){
+        return characterService.findAllByIsRoyal(isRoyal);
+    }
+
+    @GetMapping("/by-isAlive")
+    public Iterable<CharacterEntity> findAllByIsAlive(@RequestParam Boolean isAlive){
+        return characterService.findAllByIsAlive(isAlive);
+    }
+
+    @GetMapping("/with-nick")
+    public Iterable<CharacterEntity> findAllWithNickname(){
+        return characterService.findAllWithNickname();
+    }
+
+    @GetMapping("/without-nick")
+    public Iterable<CharacterEntity> findAllWithoutNickname(){
+        return characterService.findAllWithoutNickname();
+    }
+
+    @GetMapping("/with-one-house")
+    public Iterable<CharacterEntity> findAllWithSingleHouse(){
+        return characterService.findAllWithSingleHouse();
+    }
+
+    @GetMapping("/with-more-houses")
+    public Iterable<CharacterEntity> findAllWithMoreHouse(){
+        return characterService.findAllWithMoreHouse();
     }
 
     /* Complex Services */
