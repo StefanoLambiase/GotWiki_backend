@@ -46,4 +46,8 @@ public class EpisodeService {
     public Iterable<EpisodeEntity> getAllEpisodePublishedInSpecifiedYear(String year){
         return episodeRepository.getAllEpisodePublishedInSpecifiedYear(year);
     }
+
+    public Iterable<EpisodeEntity> getAllGreaterThanViewerScore(Float viewerScore){
+        return episodeRepository.getAllGreaterThanViewerScore(viewerScore);
+    }
 }

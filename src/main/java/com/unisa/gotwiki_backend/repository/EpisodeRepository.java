@@ -30,9 +30,13 @@ public interface EpisodeRepository extends Neo4jRepository<EpisodeEntity, Long> 
     Iterable<EpisodeEntity> getAllGreaterThanIMBD_Score(Float scoreIMBD);
 
     @Query("MATCH (e:Episode)\n" +
-            "WITH e, count(*) AS EPY\n" +
+            "WITH e, count(*) AS epy\n" +
             "WHERE e.airDate CONTAINS $year\n"+
-            "RETURN e, EPY"
-    )
+            "RETURN e AS episodeEntity, epy AS episodeCount")
     Iterable<EpisodeEntity> getAllEpisodePublishedInSpecifiedYear(String year);
+
+    @Query("MATCH (e:Episode)\n" +
+            "WHERE e.viewers >= $viewerScore\n" +
+            "RETURN e")
+    Iterable<EpisodeEntity> getAllGreaterThanViewerScore(Float viewerScore);
 }

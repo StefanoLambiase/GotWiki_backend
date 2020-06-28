@@ -1,6 +1,7 @@
 package com.unisa.gotwiki_backend.controller;
 
 import com.unisa.gotwiki_backend.model.SceneEntity;
+import com.unisa.gotwiki_backend.model.queryResult.scene.DeathCountPerScene;
 import com.unisa.gotwiki_backend.service.SceneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,5 +44,10 @@ public class SceneController {
     @GetMapping("/by-character")
     public Iterable<SceneEntity> findCharacterAppearedInScenes(String character){
         return sceneService.findCharacterAppearedInScenes(character);
+    }
+
+    @GetMapping("/death-scenes")
+    public Iterable<DeathCountPerScene> findDeathCountPerScene(){
+        return sceneService.findDeathCountPerScene();
     }
 }

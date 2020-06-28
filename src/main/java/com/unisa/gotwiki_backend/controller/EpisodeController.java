@@ -59,4 +59,9 @@ public class EpisodeController {
     public Iterable<EpisodeEntity> getAllEpisodePublishedInSpecifiedYear(String year){
         return episodeService.getAllEpisodePublishedInSpecifiedYear(year);
     }
+
+    @GetMapping("/viewersScore")
+    public Iterable<EpisodeEntity> getAllGreaterThanViewerScore(Float viewerScore){
+        return episodeService.getAllGreaterThanViewerScore(viewerScore);
+    }
 }

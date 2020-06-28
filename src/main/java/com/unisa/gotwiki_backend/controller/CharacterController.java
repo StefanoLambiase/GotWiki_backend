@@ -3,6 +3,7 @@ package com.unisa.gotwiki_backend.controller;
 import com.unisa.gotwiki_backend.model.CharacterEntity;
 import com.unisa.gotwiki_backend.model.queryResult.character.CharacterInLongestScene;
 import com.unisa.gotwiki_backend.model.queryResult.character.CharacterKillCount;
+import com.unisa.gotwiki_backend.model.queryResult.character.CharacterSceneCount;
 import com.unisa.gotwiki_backend.model.queryResult.character.MurderAmongRelatives;
 import com.unisa.gotwiki_backend.service.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,4 +84,8 @@ public class CharacterController {
         return characterEntities;
     }
 
+    @GetMapping("/number-of-scenes")
+    public Iterable<CharacterSceneCount> findNumberOfScenePerCharacter(){
+        return characterService.findNumberOfScenePerCharacter();
+    }
 }

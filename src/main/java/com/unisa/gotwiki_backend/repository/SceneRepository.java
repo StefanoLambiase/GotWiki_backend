@@ -1,6 +1,7 @@
 package com.unisa.gotwiki_backend.repository;
 
 import com.unisa.gotwiki_backend.model.SceneEntity;
+import com.unisa.gotwiki_backend.model.queryResult.scene.DeathCountPerScene;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 
@@ -25,5 +26,8 @@ public interface SceneRepository extends Neo4jRepository<SceneEntity, Long> {
     )
     Iterable<SceneEntity> findCharacterAppearedInScenes(String character);
 
-
+    @Query("MATCH (c:Character)-[app:APPEARS_IN]->(s:Scene), ()-[k:KILLED]->(c)\n" +
+            "WHERE s.location = k.location\n" +
+            "RETURN s AS sceneEntity, count(k) AS deathCount, collect(k) AS killsInfo, collect(c) AS charsInfo")
+    Iterable<DeathCountPerScene> findDeathCountPerScene();
 }

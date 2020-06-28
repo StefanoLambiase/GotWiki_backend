@@ -2,7 +2,9 @@ package com.unisa.gotwiki_backend.repository;
 
 import com.unisa.gotwiki_backend.model.KilledRelationshipEntity;
 import com.unisa.gotwiki_backend.model.queryResult.killed.DeathCountPerCategory;
+import com.unisa.gotwiki_backend.model.queryResult.killed.DeathCountPerSeason;
 import com.unisa.gotwiki_backend.model.queryResult.killed.KillPerImportance;
+import com.unisa.gotwiki_backend.model.queryResult.killed.SeasonDeathPercentage;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 
@@ -45,4 +47,18 @@ public interface KilledRelationshipRepository extends Neo4jRepository<KilledRela
             "WHERE k.methodCat IS NOT NULL\n" +
             "RETURN k.methodCat AS methodCategory, count(k.methodCat) AS deathCount, COLLECT(DISTINCT c.name) AS deadCharacterNames")
     Iterable<DeathCountPerCategory> findDeathCountAndKilledCharactersPerKillCategory();
+
+    @Query("MATCH ()-[k:KILLED]->()\n" +
+            "WITH k.season AS season, count(k.season) AS killCount\n" +
+            "ORDER BY season \n" +
+            "RETURN season, killCount")
+    Iterable<DeathCountPerSeason> findDeathCountPerSeason();
+
+    @Query("MATCH ()-[k:KILLED]->()\n" +
+            "WITH count(k) AS deathCount\n" +
+            "\tMATCH ()-[k:KILLED]->()\n" +
+            "\tWITH k.season AS season, count(k.season) AS deathSeason, deathCount\n" +
+            " \tORDER BY season\n" +
+            "    RETURN season, (toFloat(deathSeason)/deathCount) * 100 AS killPercentagePerSeason")
+    Iterable<SeasonDeathPercentage> findSeasonDeathPercentage();
 }

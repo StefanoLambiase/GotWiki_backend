@@ -3,6 +3,7 @@ package com.unisa.gotwiki_backend.repository;
 import com.unisa.gotwiki_backend.model.CharacterEntity;
 import com.unisa.gotwiki_backend.model.queryResult.character.CharacterInLongestScene;
 import com.unisa.gotwiki_backend.model.queryResult.character.CharacterKillCount;
+import com.unisa.gotwiki_backend.model.queryResult.character.CharacterSceneCount;
 import com.unisa.gotwiki_backend.model.queryResult.character.MurderAmongRelatives;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
@@ -82,4 +83,7 @@ public interface CharacterRepository extends Neo4jRepository<CharacterEntity, Lo
             "RETURN c1")
     Iterable<CharacterEntity> findAllSuicideCharacter();
 
+    @Query("MATCH (s:Scene), (c:Character)-[a:APPEARS_IN]->()\n" +
+            "RETURN c, count(a)")
+    Iterable<CharacterSceneCount> findNumberOfScenePerCharacter();
 }

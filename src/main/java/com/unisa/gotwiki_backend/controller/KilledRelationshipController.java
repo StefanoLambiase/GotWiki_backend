@@ -2,9 +2,12 @@ package com.unisa.gotwiki_backend.controller;
 
 import com.unisa.gotwiki_backend.model.KilledRelationshipEntity;
 import com.unisa.gotwiki_backend.model.queryResult.killed.DeathCountPerCategory;
+import com.unisa.gotwiki_backend.model.queryResult.killed.DeathCountPerSeason;
 import com.unisa.gotwiki_backend.model.queryResult.killed.KillPerImportance;
+import com.unisa.gotwiki_backend.model.queryResult.killed.SeasonDeathPercentage;
 import com.unisa.gotwiki_backend.service.KilledRelationshipService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -51,5 +54,15 @@ public class KilledRelationshipController {
             System.out.println(deathCountPerCategory.toString());
         }
         return deathCountPerCategories;
+    }
+
+    @GetMapping("/dc-per-season")
+    public Iterable<DeathCountPerSeason> findDeathCountPerSeason(){
+        return killedRelationshipService.findDeathCountPerSeason();
+    }
+
+    @GetMapping("/death-percentage")
+    public Iterable<SeasonDeathPercentage> findSeasonDeathPercentage(){
+        return killedRelationshipService.findSeasonDeathPercentage();
     }
 }
