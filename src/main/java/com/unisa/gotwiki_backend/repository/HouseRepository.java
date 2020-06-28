@@ -1,6 +1,7 @@
 package com.unisa.gotwiki_backend.repository;
 
 import com.unisa.gotwiki_backend.model.HouseEntity;
+import com.unisa.gotwiki_backend.model.queryResult.house.HouseCharacters;
 import com.unisa.gotwiki_backend.model.queryResult.house.HouseKillCount;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
@@ -16,6 +17,8 @@ public interface HouseRepository extends Neo4jRepository<HouseEntity, Long> {
     Iterable<HouseEntity> findAllByReligion(String religion);
 
     HouseEntity findByWords(String words);
+
+    Iterable<HouseEntity> findBySeat(String seat);
 
     HouseEntity findByLord(String lord);
 
@@ -33,4 +36,32 @@ public interface HouseRepository extends Neo4jRepository<HouseEntity, Long> {
             "ORDER BY killCount DESC")
     Iterable<HouseKillCount> findKillCountPerHouses();
 
+    @Query("MATCH (h:House), (c:Character{house:h.name}), (()-[k:KILLED]->(c))\n" +
+            "WITH h AS houseEntity, count(k) AS deathCount\n" +
+            "RETURN houseEntity, deathCount\n" +
+            "ORDER BY deathCount DESC")
+    Iterable<HouseKillCount> findDeathCountPerHouses();
+
+    @Query("MATCH (h:House), (c:Character)\n" +
+            "WHERE (c.isAlive = $alive) AND h.name IN c.house\n" +
+            "RETURN h AS houseEntity, count(c) AS aliveCount, collect(c.name) AS characters")
+    Iterable<HouseCharacters> findAllCharactersByAlive(Boolean alive);
+
+    /* queries to find common attributes values */
+
+    @Query("MATCH (h:House)\n" +
+            "RETURN DISTINCT h.religion")
+    Iterable<String> findAllReligion();
+
+    @Query("MATCH (h:House)\n" +
+            "RETURN DISTINCT h.region")
+    Iterable<String> findAllRegion();
+
+    @Query("MATCH (h:House)\n" +
+            "RETURN DISTINCT h.seat")
+    Iterable<String> findAllSeat();
+
+    @Query("MATCH (h:House)\n" +
+            "RETURN DISTINCT h.name")
+    Iterable<String> findAllName();
 }
