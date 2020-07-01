@@ -1,10 +1,7 @@
 package com.unisa.gotwiki_backend.repository;
 
 import com.unisa.gotwiki_backend.model.entity.CharacterEntity;
-import com.unisa.gotwiki_backend.model.queryResult.character.CharacterInLongestScene;
-import com.unisa.gotwiki_backend.model.queryResult.character.CharacterKillCount;
-import com.unisa.gotwiki_backend.model.queryResult.character.CharacterSceneCount;
-import com.unisa.gotwiki_backend.model.queryResult.character.MurderAmongRelatives;
+import com.unisa.gotwiki_backend.model.queryResult.character.*;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 
@@ -43,6 +40,10 @@ public interface CharacterRepository extends Neo4jRepository<CharacterEntity, Lo
             "WHERE apoc.meta.type(n.house) = \"String[]\"\n" +
             "RETURN n;")
     Iterable<CharacterEntity> findAllWithMoreHouse();
+
+    @Query("MATCH (c:Character)\n" +
+            "RETURN c.name AS name, c.house AS house, c.isRoyal AS isRoyal, c.isAlive AS isAlive, c.imageFull AS imageFull, c.nickname AS nickname, c.actor AS actor")
+    Iterable<CharacterMainInfo> findAllCharacterMainInfo();
 
     /* Complex queries */
 

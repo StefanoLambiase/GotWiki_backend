@@ -1,10 +1,7 @@
 package com.unisa.gotwiki_backend.service;
 
 import com.unisa.gotwiki_backend.model.entity.CharacterEntity;
-import com.unisa.gotwiki_backend.model.queryResult.character.CharacterInLongestScene;
-import com.unisa.gotwiki_backend.model.queryResult.character.CharacterKillCount;
-import com.unisa.gotwiki_backend.model.queryResult.character.CharacterSceneCount;
-import com.unisa.gotwiki_backend.model.queryResult.character.MurderAmongRelatives;
+import com.unisa.gotwiki_backend.model.queryResult.character.*;
 import com.unisa.gotwiki_backend.repository.CharacterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,6 +52,10 @@ public class CharacterService {
 
     public Iterable<CharacterEntity> findAllWithMoreHouse(){
         return characterRepository.findAllWithMoreHouse();
+    }
+
+    public Iterable<CharacterMainInfo> findAllCharacterMainInfo(){
+        return characterRepository.findAllCharacterMainInfo();
     }
 
     /* Complex services */

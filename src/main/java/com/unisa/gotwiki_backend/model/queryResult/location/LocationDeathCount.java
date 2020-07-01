@@ -23,4 +23,5 @@ public class LocationDeathCount {
     public void setDeathCount(Integer deathCount) {
         this.deathCount = deathCount;
     }
+
 }

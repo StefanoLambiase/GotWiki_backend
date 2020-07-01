@@ -19,7 +19,7 @@ public class CharacterHouseConverter implements AttributeConverter<List<String>,
     @Override
     public List<String> toEntityAttribute(Object o) {
         List<String> houses = new ArrayList<>();
-        if(o instanceof String){
+        if(o instanceof String) {
             houses.add((String) o);
         } else {
             houses = (List<String>) o;

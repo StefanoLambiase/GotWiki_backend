@@ -1,16 +1,10 @@
 package com.unisa.gotwiki_backend.controller;
 
 import com.unisa.gotwiki_backend.model.entity.CharacterEntity;
-import com.unisa.gotwiki_backend.model.queryResult.character.CharacterInLongestScene;
-import com.unisa.gotwiki_backend.model.queryResult.character.CharacterKillCount;
-import com.unisa.gotwiki_backend.model.queryResult.character.CharacterSceneCount;
-import com.unisa.gotwiki_backend.model.queryResult.character.MurderAmongRelatives;
+import com.unisa.gotwiki_backend.model.queryResult.character.*;
 import com.unisa.gotwiki_backend.service.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/characters")
@@ -70,6 +64,12 @@ public class CharacterController {
     @GetMapping("/with-more-houses")
     public Iterable<CharacterEntity> findAllWithMoreHouse(){
         return characterService.findAllWithMoreHouse();
+    }
+
+    @CrossOrigin
+    @GetMapping("/all-main-info")
+    public Iterable<CharacterMainInfo> findAllCharacterMainInfo(){
+        return characterService.findAllCharacterMainInfo();
     }
 
     /* Complex Services */
