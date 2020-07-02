@@ -35,6 +35,11 @@ public class LocationController {
         return locationService.findAllLocationName();
     }
 
+    @GetMapping("/main-infos")
+    public Iterable<LocationMainInfo> findAllLocationMainInfo(){
+        return locationService.findAllLocationMainInfo();
+    }
+
     /* Complex queries */
 
     @GetMapping("/deathCount")

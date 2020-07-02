@@ -4,6 +4,7 @@ import com.unisa.gotwiki_backend.model.entity.LocationEntity;
 import com.unisa.gotwiki_backend.model.queryResult.location.LocationAndSeasonDeathCount;
 import com.unisa.gotwiki_backend.model.queryResult.location.LocationAndSeasonSceneCount;
 import com.unisa.gotwiki_backend.model.queryResult.location.LocationDeathCount;
+import com.unisa.gotwiki_backend.model.queryResult.location.LocationMainInfo;
 import com.unisa.gotwiki_backend.repository.LocationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.neo4j.annotation.Query;
@@ -24,6 +25,10 @@ public class LocationService {
 
     public Iterable<String> findAllLocationName(){
         return locationRepository.findAllLocationName();
+    }
+
+    public Iterable<LocationMainInfo> findAllLocationMainInfo(){
+        return locationRepository.findAllLocationMainInfo();
     }
 
     /* Complex queries */

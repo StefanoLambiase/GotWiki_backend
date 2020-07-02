@@ -4,6 +4,7 @@ import com.unisa.gotwiki_backend.model.entity.LocationEntity;
 import com.unisa.gotwiki_backend.model.queryResult.location.LocationAndSeasonDeathCount;
 import com.unisa.gotwiki_backend.model.queryResult.location.LocationAndSeasonSceneCount;
 import com.unisa.gotwiki_backend.model.queryResult.location.LocationDeathCount;
+import com.unisa.gotwiki_backend.model.queryResult.location.LocationMainInfo;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 
@@ -15,6 +16,13 @@ public interface LocationRepository extends Neo4jRepository<LocationEntity, Long
     @Query("MATCH (l:Location)\n" +
             "RETURN DISTINCT l.name")
     Iterable<String> findAllLocationName();
+
+    @Query("MATCH (s:Scene)-[:SET_IN]->(l:Location)\n" +
+            "WITH l.name AS locationName, l.sublocations AS subLocationNames, count(s) AS sceneCount\n" +
+            "MATCH ()-[k:KILLED]->()\n" +
+            "WHERE k.location = locationName OR (k.location IN subLocationNames)\n" +
+            "RETURN locationName, subLocationNames, sceneCount, count(k) AS deathCount")
+    Iterable<LocationMainInfo> findAllLocationMainInfo();
 
     /* Complex queries */
 
