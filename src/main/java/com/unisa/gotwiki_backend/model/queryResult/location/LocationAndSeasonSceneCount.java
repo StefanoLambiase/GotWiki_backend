@@ -4,16 +4,15 @@ import org.springframework.data.neo4j.annotation.QueryResult;
 
 @QueryResult
 public class LocationAndSeasonSceneCount {
-    private String locationName;
-    private int sceneCount;
     private int season;
+    private int sceneCount;
 
-    public String getLocationName() {
-        return locationName;
+    public int getSeason() {
+        return season;
     }
 
-    public void setLocationName(String locationName) {
-        this.locationName = locationName;
+    public void setSeason(int season) {
+        this.season = season;
     }
 
     public int getSceneCount() {
@@ -22,13 +21,5 @@ public class LocationAndSeasonSceneCount {
 
     public void setSceneCount(int sceneCount) {
         this.sceneCount = sceneCount;
-    }
-
-    public int getSeason() {
-        return season;
-    }
-
-    public void setSeason(int season) {
-        this.season = season;
     }
 }

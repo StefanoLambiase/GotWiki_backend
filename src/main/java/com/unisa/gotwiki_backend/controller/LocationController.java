@@ -53,12 +53,27 @@ public class LocationController {
     }
 
     @GetMapping("/death-count-season")
-    public Iterable<LocationAndSeasonDeathCount> findDeathCountPerLocationAndSeason(@RequestParam String locationName, @RequestParam int season){
-        return locationService.findDeathCountPerLocationAndSeason(locationName, season);
+    public LocationAndSeasonDeathCount findDeathCountPerLocationAndSeason(@RequestParam String locationName, @RequestParam int season){
+        if(locationService.findDeathCountPerLocationAndSeason(locationName, season) != null){
+            return locationService.findDeathCountPerLocationAndSeason(locationName, season);
+        } else {
+            LocationAndSeasonDeathCount locationAndSeasonDeathCount = new LocationAndSeasonDeathCount();
+            locationAndSeasonDeathCount.setDeathCount(0);
+            locationAndSeasonDeathCount.setSeason(season);
+            return locationAndSeasonDeathCount;
+        }
     }
 
     @GetMapping("/scene-count-season")
-    public Iterable<LocationAndSeasonSceneCount> findSceneCountPerLocationAndSeason(@RequestParam String locationName, @RequestParam int season){
-        return locationService.findSceneCountPerLocationAndSeason(locationName, season);
+    public LocationAndSeasonSceneCount findSceneCountPerLocationAndSeason(@RequestParam String locationName, @RequestParam int season){
+        if(locationService.findSceneCountPerLocationAndSeason(locationName, season) != null){
+            return locationService.findSceneCountPerLocationAndSeason(locationName, season);
+        } else {
+            LocationAndSeasonSceneCount locationAndSeasonSceneCount = new LocationAndSeasonSceneCount();
+            locationAndSeasonSceneCount.setSceneCount(0);
+            locationAndSeasonSceneCount.setSeason(season);
+            return locationAndSeasonSceneCount;
+        }
     }
+
 }

@@ -5,16 +5,15 @@ import org.springframework.data.neo4j.annotation.QueryResult;
 
 @QueryResult
 public class LocationAndSeasonDeathCount {
-    private String locationName;
-    private int deathCount;
     private int season;
+    private int deathCount;
 
-    public String getLocationName() {
-        return locationName;
+    public int getSeason() {
+        return season;
     }
 
-    public void setLocationName(String locationName) {
-        this.locationName = locationName;
+    public void setSeason(int season) {
+        this.season = season;
     }
 
     public int getDeathCount() {
@@ -23,13 +22,5 @@ public class LocationAndSeasonDeathCount {
 
     public void setDeathCount(int deathCount) {
         this.deathCount = deathCount;
-    }
-
-    public int getSeason() {
-        return season;
-    }
-
-    public void setSeason(int season) {
-        this.season = season;
     }
 }

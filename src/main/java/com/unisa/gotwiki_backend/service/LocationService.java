@@ -41,11 +41,11 @@ public class LocationService {
         return locationRepository.findSceneCountPerLocation(locationName);
     }
 
-    public Iterable<LocationAndSeasonDeathCount> findDeathCountPerLocationAndSeason(String locationName, int season){
+    public LocationAndSeasonDeathCount findDeathCountPerLocationAndSeason(String locationName, int season){
         return locationRepository.findDeathCountPerLocationAndSeason(locationName, season);
     }
 
-    public Iterable<LocationAndSeasonSceneCount> findSceneCountPerLocationAndSeason(String locationName, int season){
+    public LocationAndSeasonSceneCount findSceneCountPerLocationAndSeason(String locationName, int season){
         return locationRepository.findSceneCountPerLocationAndSeason(locationName, season);
     }
 
