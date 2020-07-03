@@ -6,7 +6,7 @@ import org.springframework.data.neo4j.annotation.QueryResult;
 @QueryResult
 public class LocationAndSeasonDeathCount {
     private int season;
-    private int deathCount;
+    private int count;
 
     public int getSeason() {
         return season;
@@ -16,11 +16,11 @@ public class LocationAndSeasonDeathCount {
         this.season = season;
     }
 
-    public int getDeathCount() {
-        return deathCount;
+    public int getCount() {
+        return count;
     }
 
-    public void setDeathCount(int deathCount) {
-        this.deathCount = deathCount;
+    public void setCount(int count) {
+        this.count = count;
     }
 }

@@ -5,7 +5,7 @@ import org.springframework.data.neo4j.annotation.QueryResult;
 @QueryResult
 public class LocationAndSeasonSceneCount {
     private int season;
-    private int sceneCount;
+    private int count;
 
     public int getSeason() {
         return season;
@@ -15,11 +15,11 @@ public class LocationAndSeasonSceneCount {
         this.season = season;
     }
 
-    public int getSceneCount() {
-        return sceneCount;
+    public int getCount() {
+        return count;
     }
 
-    public void setSceneCount(int sceneCount) {
-        this.sceneCount = sceneCount;
+    public void setCount(int count) {
+        this.count = count;
     }
 }

@@ -58,7 +58,7 @@ public class LocationController {
             return locationService.findDeathCountPerLocationAndSeason(locationName, season);
         } else {
             LocationAndSeasonDeathCount locationAndSeasonDeathCount = new LocationAndSeasonDeathCount();
-            locationAndSeasonDeathCount.setDeathCount(0);
+            locationAndSeasonDeathCount.setCount(0);
             locationAndSeasonDeathCount.setSeason(season);
             return locationAndSeasonDeathCount;
         }
@@ -70,7 +70,7 @@ public class LocationController {
             return locationService.findSceneCountPerLocationAndSeason(locationName, season);
         } else {
             LocationAndSeasonSceneCount locationAndSeasonSceneCount = new LocationAndSeasonSceneCount();
-            locationAndSeasonSceneCount.setSceneCount(0);
+            locationAndSeasonSceneCount.setCount(0);
             locationAndSeasonSceneCount.setSeason(season);
             return locationAndSeasonSceneCount;
         }

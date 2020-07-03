@@ -33,16 +33,16 @@ public interface LocationRepository extends Neo4jRepository<LocationEntity, Long
 
     @Query("MATCH (s:Scene)-[:SET_IN]->(l:Location)\n" +
             "WHERE l.name=$locationName\n" +
-            "RETURN count(s) AS sceneCount")
+            "RETURN count(s) AS count")
     Iterable<LocationAndSeasonSceneCount> findSceneCountPerLocation(String locationName);
 
     @Query("MATCH (l:Location), ()-[k:KILLED]->()\n" +
             "WHERE l.name=$locationName AND (l.name=k.location OR (k.location IN l.sublocations)) AND k.season=$season\n" +
-            "RETURN count(k) AS deathCount, k.season AS season\n")
+            "RETURN count(k) AS count, k.season AS season\n")
     LocationAndSeasonDeathCount findDeathCountPerLocationAndSeason(String locationName, int season);
 
     @Query("MATCH (s:Scene)-[:SET_IN]->(l:Location)\n" +
             "WHERE l.name=$locationName AND s.season=$season\n" +
-            "RETURN count(s) AS sceneCount, s.season AS season\n")
+            "RETURN count(s) AS count, s.season AS season\n")
     LocationAndSeasonSceneCount findSceneCountPerLocationAndSeason(String locationName, int season);
 }
