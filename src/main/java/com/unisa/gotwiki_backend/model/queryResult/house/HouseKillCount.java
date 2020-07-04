@@ -6,10 +6,43 @@ import org.springframework.data.neo4j.annotation.QueryResult;
 @QueryResult
 public class HouseKillCount {
 
-    private String houseName, houseReligion, houseLord;
+    private String houseName, houseReligion, houseLord, houseCoa, houseSeat, houseWords;
     private int killCount;
+    private boolean status;
 
     /* Getters & Setters */
+
+    public String getHouseSeat() {
+        return houseSeat;
+    }
+
+    public void setHouseSeat(String houseSeat) {
+        this.houseSeat = houseSeat;
+    }
+
+    public String getHouseWords() {
+        return houseWords;
+    }
+
+    public void setHouseWords(String houseWords) {
+        this.houseWords = houseWords;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public String getHouseCoa() {
+        return houseCoa;
+    }
+
+    public void setHouseCoa(String houseCoa) {
+        this.houseCoa = houseCoa;
+    }
 
     public String getHouseName() {
         return houseName;
