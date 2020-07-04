@@ -32,13 +32,13 @@ public interface HouseRepository extends Neo4jRepository<HouseEntity, Long> {
 
     @Query("MATCH (h:House), (c:Character{house : h.name}), ((c)-[k:KILLED]->())\n" +
             "WITH h AS houseEntity, count(k) AS killCount\n" +
-            "RETURN houseEntity, killCount\n" +
+            "RETURN houseEntity.name AS houseName, houseEntity.religion AS houseReligion, houseEntity.lord AS houseLord, killCount\n" +
             "ORDER BY killCount DESC")
     Iterable<HouseKillCount> findKillCountPerHouses();
 
     @Query("MATCH (h:House), (c:Character{house:h.name}), (()-[k:KILLED]->(c))\n" +
             "WITH h AS houseEntity, count(k) AS deathCount\n" +
-            "RETURN houseEntity, deathCount\n" +
+            "RETURN houseEntity.name AS houseName, houseEntity.religion AS houseReligion, houseEntity.lord AS houseLord, deathCount\n" +
             "ORDER BY deathCount DESC")
     Iterable<HouseKillCount> findDeathCountPerHouses();
 

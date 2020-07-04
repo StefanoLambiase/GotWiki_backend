@@ -6,17 +6,33 @@ import org.springframework.data.neo4j.annotation.QueryResult;
 @QueryResult
 public class HouseKillCount {
 
-    private HouseEntity houseEntity;
+    private String houseName, houseReligion, houseLord;
     private int killCount;
 
     /* Getters & Setters */
 
-    public HouseEntity getHouseEntity() {
-        return houseEntity;
+    public String getHouseName() {
+        return houseName;
     }
 
-    public void setHouseEntity(HouseEntity houseEntity) {
-        this.houseEntity = houseEntity;
+    public void setHouseName(String houseName) {
+        this.houseName = houseName;
+    }
+
+    public String getHouseReligion() {
+        return houseReligion;
+    }
+
+    public void setHouseReligion(String houseReligion) {
+        this.houseReligion = houseReligion;
+    }
+
+    public String getHouseLord() {
+        return houseLord;
+    }
+
+    public void setHouseLord(String houseLord) {
+        this.houseLord = houseLord;
     }
 
     public int getKillCount() {
@@ -32,7 +48,9 @@ public class HouseKillCount {
     @Override
     public String toString() {
         return "HouseKillCount{" +
-                "houseEntity=" + houseEntity +
+                "houseName=" + houseName +
+                "houseLord=" + houseLord +
+                "houseReligion=" + houseReligion +
                 ", killCount=" + killCount +
                 '}';
     }
