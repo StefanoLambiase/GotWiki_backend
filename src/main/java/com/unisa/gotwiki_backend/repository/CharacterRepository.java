@@ -41,9 +41,14 @@ public interface CharacterRepository extends Neo4jRepository<CharacterEntity, Lo
             "RETURN n;")
     Iterable<CharacterEntity> findAllWithMoreHouse();
 
-    @Query("MATCH (c:Character)\n" +
-            "RETURN c.name AS name, c.house AS house, c.isRoyal AS isRoyal, c.isAlive AS isAlive, c.imageFull AS imageFull, c.nickname AS nickname, c.actor AS actor")
+    @Query("MATCH (c:Character)-[a:APPEARS_IN]->()\n" +
+            "RETURN c.name AS name, c.house AS house, c.isRoyal AS isRoyal, c.isAlive AS isAlive, c.nickname AS nickname, c.actor AS actor, c.imageFull AS imageFull, count(a) AS sceneCount")
     Iterable<CharacterMainInfo> findAllCharacterMainInfo();
+
+    @Query("MATCH (c:Character)-[k:KILLED]->()\n" +
+            "WHERE c.name = $name\n" +
+            "RETURN count(k)")
+    Integer findCharacterKillCount(String name);
 
     /* Complex queries */
 

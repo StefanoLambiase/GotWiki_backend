@@ -6,8 +6,6 @@ import com.unisa.gotwiki_backend.converter.CharacterMainInfoHouseConverter;
 import org.neo4j.ogm.annotation.typeconversion.Convert;
 import org.springframework.data.neo4j.annotation.QueryResult;
 
-import java.util.List;
-
 @QueryResult
 public class CharacterMainInfo {
 
@@ -17,10 +15,12 @@ public class CharacterMainInfo {
     private Boolean isRoyal;
     @Convert(CharacterIsAliveConverter.class)
     private Boolean isAlive;
-    private String imageFull;
     private String nickname;
     private String actor;
+    private int sceneCount;
+    private int killCount;
 
+    private String imageFull;
 
     public String getName() {
         return name;
@@ -54,14 +54,6 @@ public class CharacterMainInfo {
         isAlive = alive;
     }
 
-    public String getImageFull() {
-        return imageFull;
-    }
-
-    public void setImageFull(String imageFull) {
-        this.imageFull = imageFull;
-    }
-
     public String getNickname() {
         return nickname;
     }
@@ -76,5 +68,29 @@ public class CharacterMainInfo {
 
     public void setActor(String actor) {
         this.actor = actor;
+    }
+
+    public int getSceneCount() {
+        return sceneCount;
+    }
+
+    public void setSceneCount(int sceneCount) {
+        this.sceneCount = sceneCount;
+    }
+
+    public int getKillCount() {
+        return killCount;
+    }
+
+    public void setKillCount(int killCount) {
+        this.killCount = killCount;
+    }
+
+    public String getImageFull() {
+        return imageFull;
+    }
+
+    public void setImageFull(String imageFull) {
+        this.imageFull = imageFull;
     }
 }

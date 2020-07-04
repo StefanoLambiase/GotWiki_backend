@@ -66,10 +66,18 @@ public class CharacterController {
         return characterService.findAllWithMoreHouse();
     }
 
-    @CrossOrigin
     @GetMapping("/all-main-info")
     public Iterable<CharacterMainInfo> findAllCharacterMainInfo(){
-        return characterService.findAllCharacterMainInfo();
+        Iterable<CharacterMainInfo> characters = characterService.findAllCharacterMainInfo();
+        for(CharacterMainInfo character: characters){
+            character.setKillCount(characterService.findCharacterKillCount(character.getName()));
+        }
+        return characters;
+    }
+
+    @GetMapping("/kill-count")
+    public Integer findCharacterKillCount(@RequestParam String name){
+        return characterService.findCharacterKillCount(name);
     }
 
     /* Complex Services */

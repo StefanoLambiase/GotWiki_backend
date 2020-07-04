@@ -58,6 +58,10 @@ public class CharacterService {
         return characterRepository.findAllCharacterMainInfo();
     }
 
+    public Integer findCharacterKillCount(String name){
+        return characterRepository.findCharacterKillCount(name);
+    }
+
     /* Complex services */
 
     public Iterable<CharacterInLongestScene> findCharactersInLongestScenes(int maxNumberOfLongestScenes){
