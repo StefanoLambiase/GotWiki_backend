@@ -32,13 +32,13 @@ public interface HouseRepository extends Neo4jRepository<HouseEntity, Long> {
 
     @Query("MATCH (h:House), (c:Character{house : h.name}), ((c)-[k:KILLED]->())\n" +
             "WITH h AS houseEntity, count(k) AS killCount\n" +
-            "RETURN houseEntity.name AS houseName, houseEntity.religion AS houseReligion, houseEntity.lord AS houseLord, killCount\n" +
+            "RETURN houseEntity.alive AS status, houseEntity.words AS houseWords,houseEntity.seat AS houseSeat,houseEntity.name AS houseName, houseEntity.religion AS houseReligion, houseEntity.lord AS houseLord, houseEntity.coa AS houseCoa, killCount\n" +
             "ORDER BY killCount DESC")
     Iterable<HouseKillCount> findKillCountPerHouses();
 
     @Query("MATCH (h:House), (c:Character{house:h.name}), (()-[k:KILLED]->(c))\n" +
             "WITH h AS houseEntity, count(k) AS deathCount\n" +
-            "RETURN houseEntity.name AS houseName, houseEntity.religion AS houseReligion, houseEntity.lord AS houseLord, deathCount\n" +
+            "RETURN houseEntity.alive AS status, houseEntity.words AS houseWords,houseEntity.seat AS houseSeat,houseEntity.name AS houseName, houseEntity.religion AS houseReligion, houseEntity.lord AS houseLord, houseEntity.coa AS houseCoa, deathCount\n" +
             "ORDER BY deathCount DESC")
     Iterable<HouseKillCount> findDeathCountPerHouses();
 
@@ -64,4 +64,5 @@ public interface HouseRepository extends Neo4jRepository<HouseEntity, Long> {
     @Query("MATCH (h:House)\n" +
             "RETURN DISTINCT h.name")
     Iterable<String> findAllName();
+
 }
