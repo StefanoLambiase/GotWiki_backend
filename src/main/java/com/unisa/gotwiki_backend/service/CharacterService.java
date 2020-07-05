@@ -68,8 +68,8 @@ public class CharacterService {
         return characterRepository.findCharactersInLongestScenes(maxNumberOfLongestScenes);
     }
 
-    public Iterable<CharacterKillCount> findAllKillCountPerCategoryPerCharacter(){
-        return characterRepository.findAllKillCountPerCategoryPerCharacter();
+    public CategoriesKillCount findKillCountPerCategoryPerCharacter(String characterName){
+        return characterRepository.findKillCountPerCategoryPerCharacter(characterName);
     }
 
     public Iterable<MurderAmongRelatives> findAllMurdersAmongRelatives(){
@@ -82,5 +82,24 @@ public class CharacterService {
 
     public Iterable<CharacterSceneCount> findNumberOfScenePerCharacter(){
         return characterRepository.findNumberOfScenePerCharacter();
+    }
+
+
+    /* Queries used to create CharacterRelationships */
+
+    public String[] findAllSiblingsPerCharacter(String characterName){
+        return characterRepository.findAllSiblingsPerCharacter(characterName);
+    }
+
+    public String[] findAllParentsPerCharacter(String characterName){
+        return characterRepository.findAllParentsPerCharacter(characterName);
+    }
+
+    public String[] findAllEngagedPerCharacter(String characterName){
+        return characterRepository.findAllEngagedPerCharacter(characterName);
+    }
+
+    public KilledPerson[] findAllKilledPeoplePerCharacter(String characterName){
+        return characterRepository.findAllKilledPeoplePerCharacter(characterName);
     }
 }

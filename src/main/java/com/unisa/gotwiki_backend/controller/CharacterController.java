@@ -92,12 +92,9 @@ public class CharacterController {
     }
 
     @RequestMapping("/kill-count-per-category")
-    public Iterable<CharacterKillCount> findAllKillCountPerCategoryPerCharacter(){
-        Iterable<CharacterKillCount> characterKillCounts = characterService.findAllKillCountPerCategoryPerCharacter();
-        for(CharacterKillCount characterKillCount : characterKillCounts){
-            System.out.println(characterKillCount.toString());
-        }
-        return characterKillCounts;
+    public CategoriesKillCount findKillCountPerCategoryPerCharacter(@RequestParam String characterName){
+        CategoriesKillCount characterKillCount = characterService.findKillCountPerCategoryPerCharacter(characterName);
+        return characterKillCount;
     }
 
     @RequestMapping("/murder-among-relatives")
@@ -122,4 +119,34 @@ public class CharacterController {
     public Iterable<CharacterSceneCount> findNumberOfScenePerCharacter(){
         return characterService.findNumberOfScenePerCharacter();
     }
+
+    /* Queries used to create CharacterRelationships */
+
+    @GetMapping("/siblings")
+    public String[] findAllSiblingsPerCharacter(@RequestParam String characterName){
+        return characterService.findAllSiblingsPerCharacter(characterName);
+    }
+
+    public String[] findAllParentsPerCharacter(String characterName){
+        return characterService.findAllParentsPerCharacter(characterName);
+    }
+
+    public String[] findAllEngagedPerCharacter(String characterName){
+        return characterService.findAllEngagedPerCharacter(characterName);
+    }
+
+    @RequestMapping("all-killed-people")
+    public KilledPerson[] findAllKilledPeoplePerCharacter(@RequestParam String characterName){
+        return characterService.findAllKilledPeoplePerCharacter(characterName);
+    }
+
+    @RequestMapping("/all-relationships")
+    public CharacterRelationships findAllRelationships(@RequestParam String characterName){
+        CharacterRelationships characterRelationships = new CharacterRelationships();
+        characterRelationships.setSiblings(this.findAllSiblingsPerCharacter(characterName));
+        characterRelationships.setEngaged(this.findAllEngagedPerCharacter(characterName));
+        characterRelationships.setParents(this.findAllParentsPerCharacter(characterName));
+        return characterRelationships;
+    }
+
 }

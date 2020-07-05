@@ -62,10 +62,11 @@ public interface CharacterRepository extends Neo4jRepository<CharacterEntity, Lo
     Iterable<CharacterInLongestScene> findCharactersInLongestScenes(int maxNumberOfLongestScenes);
 
     @Query("MATCH (c:Character)-[k:KILLED]->(:Character)\n" +
+            "WHERE c.name = $characterName\n" +
             "WITH c, k.methodCat AS mc, count(k.methodCat) AS mcCount\n" +
             "   ORDER BY mcCount DESC\n" +
-            "RETURN c AS CharacterEntity, collect(mc) AS killMethodCategories, collect(mcCount) AS killCountPerCategories")
-    Iterable<CharacterKillCount> findAllKillCountPerCategoryPerCharacter();
+            "RETURN collect(mc) AS killMethodCategories, collect(mcCount) AS killCountPerCategories")
+    CategoriesKillCount findKillCountPerCategoryPerCharacter(String characterName);
 
     @Query("MATCH (killer:Character)-[murder:KILLED]->(killed:Character)\n" +
             "\n" +
@@ -92,4 +93,26 @@ public interface CharacterRepository extends Neo4jRepository<CharacterEntity, Lo
     @Query("MATCH (s:Scene), (c:Character)-[a:APPEARS_IN]->()\n" +
             "RETURN c, count(a)")
     Iterable<CharacterSceneCount> findNumberOfScenePerCharacter();
+
+    /* Queries used to create CharacterRelationships */
+
+    @Query("MATCH (c1:Character)-[s:SIBLING_OF]->(c2)\n" +
+            "WHERE c1.name = $characterName\n" +
+            "RETURN c2.name")
+    String[] findAllSiblingsPerCharacter(String characterName);
+
+    @Query("MATCH (c1:Character)-[s:SON_OF]->(c2)\n" +
+            "WHERE c1.name = $characterName\n" +
+            "RETURN c2.name")
+    String[] findAllParentsPerCharacter(String characterName);
+
+    @Query("MATCH (c1:Character)-[s:ENGAGED]->(c2)\n" +
+            "WHERE c1.name = $characterName\n" +
+            "RETURN c2.name")
+    String[] findAllEngagedPerCharacter(String characterName);
+
+    @Query("MATCH (c1:Character)-[k:KILLED]->(c2)\n" +
+            "WHERE c1.name = $characterName\n" +
+            "RETURN c2.name AS name, count(c2) AS count")
+    KilledPerson[] findAllKilledPeoplePerCharacter(String characterName);
 }
