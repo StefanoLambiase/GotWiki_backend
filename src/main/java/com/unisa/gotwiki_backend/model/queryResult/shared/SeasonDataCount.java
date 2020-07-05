@@ -4,22 +4,27 @@ import org.springframework.data.neo4j.annotation.QueryResult;
 
 @QueryResult
 public class SeasonDataCount {
-    private int season;
-    private int count;
+    private long season;
+    private long count;
 
-    public int getSeason() {
+    public SeasonDataCount(long season, long count) {
+        this.season = season;
+        this.count = count;
+    }
+
+    public long getSeason() {
         return season;
     }
 
-    public void setSeason(int season) {
+    public void setSeason(long season) {
         this.season = season;
     }
 
-    public int getCount() {
+    public long getCount() {
         return count;
     }
 
-    public void setCount(int count) {
+    public void setCount(long count) {
         this.count = count;
     }
 }

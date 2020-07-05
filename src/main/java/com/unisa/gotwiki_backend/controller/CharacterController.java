@@ -151,11 +151,19 @@ public class CharacterController {
 
     @RequestMapping("/kill-per-season")
     public SeasonDataCount findKillPerSeason(@RequestParam String characterName, @RequestParam int season){
-        return characterService.findKillPerSeason(characterName, season);
+        SeasonDataCount data = characterService.findKillPerSeason(characterName, season);
+        if(data == null){
+            data = new SeasonDataCount(season, 0);
+        }
+        return data;
     }
 
     @RequestMapping("/scenes-per-season")
     public SeasonDataCount findScenePerSeason(@RequestParam String characterName, @RequestParam int season){
-        return characterService.findScenePerSeason(characterName, season);
+        SeasonDataCount data = characterService.findScenePerSeason(characterName, season);
+        if(data == null){
+            data = new SeasonDataCount(season, 0);
+        }
+        return data;
     }
 }
