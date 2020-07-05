@@ -93,8 +93,7 @@ public class CharacterController {
 
     @RequestMapping("/kill-count-per-category")
     public CategoriesKillCount findKillCountPerCategoryPerCharacter(@RequestParam String characterName){
-        CategoriesKillCount characterKillCount = characterService.findKillCountPerCategoryPerCharacter(characterName);
-        return characterKillCount;
+        return characterService.findKillCountPerCategoryPerCharacter(characterName);
     }
 
     @RequestMapping("/murder-among-relatives")
