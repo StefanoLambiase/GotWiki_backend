@@ -2,6 +2,7 @@ package com.unisa.gotwiki_backend.repository;
 
 import com.unisa.gotwiki_backend.model.entity.CharacterEntity;
 import com.unisa.gotwiki_backend.model.queryResult.character.*;
+import com.unisa.gotwiki_backend.model.queryResult.shared.SeasonDataCount;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 
@@ -115,4 +116,14 @@ public interface CharacterRepository extends Neo4jRepository<CharacterEntity, Lo
             "WHERE c1.name = $characterName\n" +
             "RETURN c2.name AS name, count(c2) AS count")
     KilledPerson[] findAllKilledPeoplePerCharacter(String characterName);
+
+    @Query("MATCH (c1:Character)-[k:KILLED]->(c2)\n" +
+            "WHERE c1.name = $characterName AND k.season = $season\n" +
+            "RETURN k.season AS season, count(k.season) AS count")
+    SeasonDataCount findKillPerSeason(String characterName, int season);
+
+    @Query("MATCH (c1:Character)-[a:APPEARS_IN]->(s:Scene)\n" +
+            "WHERE c1.name = $characterName AND s.season = $season\n" +
+            "RETURN s.season AS season, count(a) AS count")
+    SeasonDataCount findScenePerSeason(String characterName, int season);
 }

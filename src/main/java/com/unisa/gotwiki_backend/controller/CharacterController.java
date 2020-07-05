@@ -2,6 +2,7 @@ package com.unisa.gotwiki_backend.controller;
 
 import com.unisa.gotwiki_backend.model.entity.CharacterEntity;
 import com.unisa.gotwiki_backend.model.queryResult.character.*;
+import com.unisa.gotwiki_backend.model.queryResult.shared.SeasonDataCount;
 import com.unisa.gotwiki_backend.service.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -148,4 +149,13 @@ public class CharacterController {
         return characterRelationships;
     }
 
+    @RequestMapping("/kill-per-season")
+    public SeasonDataCount findKillPerSeason(@RequestParam String characterName, @RequestParam int season){
+        return characterService.findKillPerSeason(characterName, season);
+    }
+
+    @RequestMapping("/scenes-per-season")
+    public SeasonDataCount findScenePerSeason(@RequestParam String characterName, @RequestParam int season){
+        return characterService.findScenePerSeason(characterName, season);
+    }
 }

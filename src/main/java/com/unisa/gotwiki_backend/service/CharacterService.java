@@ -2,6 +2,7 @@ package com.unisa.gotwiki_backend.service;
 
 import com.unisa.gotwiki_backend.model.entity.CharacterEntity;
 import com.unisa.gotwiki_backend.model.queryResult.character.*;
+import com.unisa.gotwiki_backend.model.queryResult.shared.SeasonDataCount;
 import com.unisa.gotwiki_backend.repository.CharacterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -101,5 +102,13 @@ public class CharacterService {
 
     public KilledPerson[] findAllKilledPeoplePerCharacter(String characterName){
         return characterRepository.findAllKilledPeoplePerCharacter(characterName);
+    }
+
+    public SeasonDataCount findKillPerSeason(String characterName, int season){
+        return characterRepository.findKillPerSeason(characterName, season);
+    }
+
+    public SeasonDataCount findScenePerSeason(String characterName, int season){
+        return characterRepository.findScenePerSeason(characterName, season);
     }
 }
