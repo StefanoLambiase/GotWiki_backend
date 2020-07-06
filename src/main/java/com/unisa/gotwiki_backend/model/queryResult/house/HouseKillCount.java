@@ -6,11 +6,19 @@ import org.springframework.data.neo4j.annotation.QueryResult;
 @QueryResult
 public class HouseKillCount {
 
-    private String houseName, houseReligion, houseLord, houseCoa, houseSeat, houseWords;
+    private String houseName, houseReligion, houseLord, houseCoa, houseSeat, houseWords, houseRegion;
     private int killCount;
     private boolean status;
 
     /* Getters & Setters */
+
+    public String getHouseRegion() {
+        return houseRegion;
+    }
+
+    public void setHouseRegion(String houseRegion) {
+        this.houseRegion = houseRegion;
+    }
 
     public String getHouseSeat() {
         return houseSeat;
