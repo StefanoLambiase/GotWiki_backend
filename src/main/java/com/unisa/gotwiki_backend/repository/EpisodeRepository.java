@@ -1,6 +1,7 @@
 package com.unisa.gotwiki_backend.repository;
 
 import com.unisa.gotwiki_backend.model.entity.EpisodeEntity;
+import com.unisa.gotwiki_backend.model.queryResult.episode.EpisodePerSeason;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 
@@ -39,4 +40,9 @@ public interface EpisodeRepository extends Neo4jRepository<EpisodeEntity, Long> 
             "WHERE e.viewers >= $viewerScore\n" +
             "RETURN e")
     Iterable<EpisodeEntity> getAllGreaterThanViewerScore(Float viewerScore);
+
+    @Query("MATCH (e:Episode)\n" +
+            "WHERE e.season = $season\n" +
+            "RETURN e.writer AS episodeWriter, e.title AS episodeTitle, e.IMBD_Score AS imbdScore, e.viewers AS viewerScore, e.RottenTomatoes_Score AS tomatoScore")
+    Iterable<EpisodePerSeason> getEpisodePerSeason(Integer season);
 }

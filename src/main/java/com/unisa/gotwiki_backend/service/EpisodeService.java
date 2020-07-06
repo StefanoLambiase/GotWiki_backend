@@ -1,6 +1,7 @@
 package com.unisa.gotwiki_backend.service;
 
 import com.unisa.gotwiki_backend.model.entity.EpisodeEntity;
+import com.unisa.gotwiki_backend.model.queryResult.episode.EpisodePerSeason;
 import com.unisa.gotwiki_backend.repository.EpisodeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,5 +50,9 @@ public class EpisodeService {
 
     public Iterable<EpisodeEntity> getAllGreaterThanViewerScore(Float viewerScore){
         return episodeRepository.getAllGreaterThanViewerScore(viewerScore);
+    }
+
+    public Iterable<EpisodePerSeason> getEpisodePerSeason(Integer season){
+        return episodeRepository.getEpisodePerSeason(season);
     }
 }
