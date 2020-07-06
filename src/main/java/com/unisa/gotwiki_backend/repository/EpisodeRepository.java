@@ -43,6 +43,7 @@ public interface EpisodeRepository extends Neo4jRepository<EpisodeEntity, Long> 
 
     @Query("MATCH (e:Episode)\n" +
             "WHERE e.season = $season\n" +
-            "RETURN e.writer AS episodeWriter, e.title AS episodeTitle, e.IMBD_Score AS imbdScore, e.viewers AS viewerScore, e.RottenTomatoes_Score AS tomatoScore")
+            "RETURN e.episode AS episodeNumber ,e.writer AS episodeWriter, e.title AS episodeTitle, e.IMBD_Score AS imbdScore, e.viewers AS viewerScore, e.RottenTomatoes_Score AS tomatoScore\n" +
+            "ORDER BY e.episode")
     Iterable<EpisodePerSeason> getEpisodePerSeason(Integer season);
 }

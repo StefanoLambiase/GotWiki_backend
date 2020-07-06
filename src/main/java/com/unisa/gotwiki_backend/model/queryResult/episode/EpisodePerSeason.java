@@ -6,6 +6,15 @@ import org.springframework.data.neo4j.annotation.QueryResult;
 public class EpisodePerSeason {
     private String episodeTitle, episodeWriter;
     private Float viewerScore, imbdScore, tomatoScore;
+    private Integer episodeNumber;
+
+    public Integer getEpisodeNumber() {
+        return episodeNumber;
+    }
+
+    public void setEpisodeNumber(Integer episodeNumber) {
+        this.episodeNumber = episodeNumber;
+    }
 
     public String getEpisodeTitle() {
         return episodeTitle;
